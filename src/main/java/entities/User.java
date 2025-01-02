@@ -8,7 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-public class Users {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
