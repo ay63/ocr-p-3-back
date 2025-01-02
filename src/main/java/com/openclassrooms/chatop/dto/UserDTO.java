@@ -1,4 +1,4 @@
-package Dto;
+package com.openclassrooms.chatop.dto;
 
 
 import jakarta.validation.constraints.Email;
