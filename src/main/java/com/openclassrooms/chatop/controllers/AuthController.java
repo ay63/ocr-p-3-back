@@ -1,8 +1,7 @@
 package com.openclassrooms.chatop.controllers;
 
-import Dto.UserDTO;
+import com.openclassrooms.chatop.dto.UserDTO;
 import com.openclassrooms.chatop.services.JwtService;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
