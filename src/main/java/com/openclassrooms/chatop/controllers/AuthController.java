@@ -2,6 +2,7 @@ package com.openclassrooms.chatop.controllers;
 
 import com.openclassrooms.chatop.dto.UserDTO;
 import com.openclassrooms.chatop.services.JwtService;
+import com.openclassrooms.chatop.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
@@ -10,13 +11,22 @@ public class AuthController {
 
     private final JwtService jwtService;
 
-    public AuthController(JwtService jwtService) {
+    private final UserService userService;
+
+    public AuthController(JwtService jwtService, UserService userService) {
+        this.userService = userService;
         this.jwtService = jwtService;
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody UserDTO userDto) {
-        return "userDto";
+    public String register(@RequestBody UserDTO userDTO) {
+
+
+        boolean userExist = this.userService.isUserExist(userDTO.getEmail());
+
+
+
+        return "TOTO";
     }
 
     @PostMapping("/login")
