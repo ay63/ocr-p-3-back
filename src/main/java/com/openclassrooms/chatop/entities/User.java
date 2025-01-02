@@ -2,8 +2,8 @@ package com.openclassrooms.chatop.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -30,6 +30,9 @@ public class User {
 
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Rental> rentals;
 
     public Integer getId() {
         return id;

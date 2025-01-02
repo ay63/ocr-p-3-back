@@ -3,7 +3,6 @@ package com.openclassrooms.chatop.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 
@@ -19,10 +18,10 @@ public class Rental {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "surface", precision = 10)
+    @Column(name = "surface", precision = 2)
     private BigDecimal surface;
 
-    @Column(name = "price", precision = 10)
+    @Column(name = "price", precision = 2)
     private BigDecimal price;
 
     @Size(max = 255)
@@ -34,7 +33,10 @@ public class Rental {
     private String description;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
