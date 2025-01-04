@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.dto;
+package com.openclassrooms.chatop.dto.user;
 
 
 import jakarta.validation.constraints.Email;
@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class UserRegisterDTO {
+public class UserRegisterDto {
 
     @Email
     @NotBlank

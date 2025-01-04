@@ -1,11 +1,11 @@
-package com.openclassrooms.chatop.dto;
+package com.openclassrooms.chatop.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class UserLoginDTO {
+public class UserLoginDto {
 
     @Email
     @NotBlank
@@ -17,7 +17,6 @@ public class UserLoginDTO {
     @NotNull
     @Size(max = 255)
     private String password;
-
 
     public String getLogin() {
         return login;

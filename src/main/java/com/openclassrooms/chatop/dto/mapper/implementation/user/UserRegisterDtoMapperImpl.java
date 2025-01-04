@@ -1,22 +1,22 @@
-package com.openclassrooms.chatop.dto.implementation;
+package com.openclassrooms.chatop.dto.mapper.implementation.user;
 
-import com.openclassrooms.chatop.dto.UserRegisterDTO;
+import com.openclassrooms.chatop.dto.user.UserRegisterDto;
+import com.openclassrooms.chatop.dto.mapper.implementation.DTOMapper;
 import com.openclassrooms.chatop.entities.User;
-import com.openclassrooms.chatop.dto.mappers.UserRegisterMapper;
 import com.openclassrooms.chatop.services.PasswordService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserRegisterMapperImpl implements UserRegisterMapper {
+public class UserRegisterDtoMapperImpl implements DTOMapper<User, UserRegisterDto> {
 
     private final PasswordService passwordService;
 
-    UserRegisterMapperImpl(PasswordService passwordService) {
+    UserRegisterDtoMapperImpl(PasswordService passwordService) {
         this.passwordService = passwordService;
     }
 
     @Override
-    public User toEntity(UserRegisterDTO dto) {
+    public User toEntity(UserRegisterDto dto) {
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
@@ -25,8 +25,8 @@ public class UserRegisterMapperImpl implements UserRegisterMapper {
     }
 
     @Override
-    public UserRegisterDTO toDto(User user) {
-        UserRegisterDTO dto = new UserRegisterDTO();
+    public UserRegisterDto toDto(User user) {
+        UserRegisterDto dto = new UserRegisterDto();
         dto.setPassword(user.getPassword());
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
