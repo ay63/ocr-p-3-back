@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,20 +16,25 @@ public class Rental {
     private Integer id;
 
     @Size(max = 255)
+    @NotNull
     @Column(name = "name")
     private String name;
 
-    @Column(name = "surface", precision = 2)
-    private BigDecimal surface;
+    @NotNull
+    @Column(name = "surface", precision = 6)
+    private Double surface;
 
-    @Column(name = "price", precision = 2)
+    @NotNull
+    @Column(name = "price", precision = 6)
     private BigDecimal price;
 
     @Size(max = 255)
+    @NotNull
     @Column(name = "picture")
     private String picture;
 
     @Size(max = 2000)
+    @NotNull
     @Column(name = "description", length = 2000)
     private String description;
 
@@ -38,21 +44,18 @@ public class Rental {
             CascadeType.MERGE
     })
     @JoinColumn(name = "owner_id", nullable = false)
+    @JsonBackReference
     private User owner;
 
     @Column(name = "created_at")
+    @NotNull
     private Instant createdAt;
 
     @Column(name = "updated_at")
+    @NotNull
     private Instant updatedAt;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public Integer getId() { return id; }
 
     public String getName() {
         return name;
@@ -62,11 +65,11 @@ public class Rental {
         this.name = name;
     }
 
-    public BigDecimal getSurface() {
+    public Double getSurface() {
         return surface;
     }
 
-    public void setSurface(BigDecimal surface) {
+    public void setSurface(Double surface) {
         this.surface = surface;
     }
 

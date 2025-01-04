@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import java.time.Instant;
@@ -8,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -31,16 +33,11 @@ public class User {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "owner")
     private List<Rental> rentals;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public Integer getId() { return id; }
 
     public String getEmail() {
         return email;
