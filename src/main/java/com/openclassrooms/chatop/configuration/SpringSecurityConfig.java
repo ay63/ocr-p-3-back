@@ -1,6 +1,7 @@
 package com.openclassrooms.chatop.configuration;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -22,8 +23,8 @@ import javax.crypto.spec.SecretKeySpec;
 @EnableWebSecurity
 public class SpringSecurityConfig {
 
-    //@todo to improvement bad code
-    public String key = "fsdf45AZ8f74sd8fsdfsdAZSKAZKlmdfklmsdkfjsdf54564sd56fsdfseuifys";
+    @Value("${app.token.key}")
+    public String key;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
