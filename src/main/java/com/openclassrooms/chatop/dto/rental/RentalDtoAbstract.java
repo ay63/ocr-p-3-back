@@ -1,31 +1,33 @@
 package com.openclassrooms.chatop.dto.rental;
 
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.web.multipart.MultipartFile;
+
 import java.math.BigDecimal;
+import java.time.Instant;
 
-public class RentalUpdateDto {
+abstract class RentalDtoAbstract {
 
-    @NotBlank
     @NotNull
     private String name;
 
-    @NotBlank
     @NotNull
     private Double surface;
 
-    @NotBlank
     @NotNull
     private BigDecimal price;
 
-    @NotBlank
-    @NotNull
-    private MultipartFile picture;
-
-    @NotBlank
     @NotNull
     private String description;
+
+    @JsonProperty("owner_id")
+    private Integer ownerId;
+
+    @JsonProperty("created_at")
+    private Instant createdAt;
+
+    @JsonProperty("updated_at")
+    private Instant updatedAt;
 
     public String getName() {
         return name;
@@ -51,13 +53,6 @@ public class RentalUpdateDto {
         this.price = price;
     }
 
-    public MultipartFile getPicture() {
-        return picture;
-    }
-
-    public void setPicture(MultipartFile picture) {
-        this.picture = picture;
-    }
 
     public String getDescription() {
         return description;
@@ -65,5 +60,29 @@ public class RentalUpdateDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Integer ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

@@ -31,8 +31,6 @@ public class RentalDtoMapperImpl implements DTOMapper<Rental, RentalDto> {
         rental.setCreatedAt(dto.getCreatedAt());
         rental.setUpdatedAt(dto.getUpdatedAt());
         rental.setOwner(user);
-        // todo handle file
-        rental.setPicture(dto.getPicture().getOriginalFilename());
         rental.setDescription(dto.getDescription());
         rental.setPrice(dto.getPrice());
         rental.setSurface(dto.getSurface());
@@ -47,8 +45,6 @@ public class RentalDtoMapperImpl implements DTOMapper<Rental, RentalDto> {
         dto.setCreatedAt(rental.getCreatedAt());
         dto.setUpdatedAt(rental.getUpdatedAt());
         dto.setOwnerId(rental.getOwner().getId());
-        // todo handle file
-        //dto.setPicture(rental.getPicture());
         dto.setDescription(rental.getDescription());
         dto.setPrice(rental.getPrice());
         return dto;

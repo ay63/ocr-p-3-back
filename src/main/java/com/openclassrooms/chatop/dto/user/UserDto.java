@@ -8,6 +8,10 @@ import java.time.Instant;
 
 public class UserDto {
 
+    @NotNull
+    @NotBlank
+    private int id;
+
     @Email
     @NotBlank
     private String email;
@@ -26,6 +30,15 @@ public class UserDto {
 
     @NotNull
     private Instant updatedAt;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Instant getCreatedAt() {
         return createdAt;

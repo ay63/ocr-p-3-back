@@ -22,6 +22,7 @@ public class UserDtoMapperImpl implements DTOMapper<User, UserDto> {
     @Override
     public UserDto toDto(User user) {
         UserDto dto = new UserDto();
+        dto.setId(user.getId());
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         dto.setPassword(user.getPassword());
