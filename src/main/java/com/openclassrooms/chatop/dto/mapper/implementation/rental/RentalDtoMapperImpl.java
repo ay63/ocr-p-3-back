@@ -5,16 +5,20 @@ import com.openclassrooms.chatop.dto.mapper.implementation.DTOMapper;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.repositories.UserRepository;
+import com.openclassrooms.chatop.services.DateService;
 import org.springframework.stereotype.Component;
+import java.time.Instant;
 
 @Component
 public class RentalDtoMapperImpl implements DTOMapper<Rental, RentalDto> {
 
     private final UserRepository userRepository;
+    private final DateService dateService;
 
-    public RentalDtoMapperImpl(UserRepository userRepository) {
+    public RentalDtoMapperImpl(UserRepository userRepository, DateService dateService) {
 
         this.userRepository = userRepository;
+        this.dateService = dateService;
     }
 
     @Override
@@ -22,14 +26,22 @@ public class RentalDtoMapperImpl implements DTOMapper<Rental, RentalDto> {
 
         User user = this.userRepository.findById(dto.getOwnerId()).orElse(null);
 
-        if (user == null) {
-            return null;
-        }
+        if (user == null) return null;
 
         Rental rental = new Rental();
+        if (dto.getCreatedAt() == null) {
+            rental.setCreatedAt(Instant.now());
+        } else {
+            rental.setCreatedAt(dateService.getFormattedDateToInstant(dto.getCreatedAt()));
+        }
+
+        if(dto.getUpdatedAt() == null){
+            rental.setUpdatedAt(Instant.now());
+        }else{
+            rental.setUpdatedAt(dateService.getFormattedDateToInstant(dto.getUpdatedAt()));
+        }
+
         rental.setName(dto.getName());
-        rental.setCreatedAt(dto.getCreatedAt());
-        rental.setUpdatedAt(dto.getUpdatedAt());
         rental.setOwner(user);
         rental.setDescription(dto.getDescription());
         rental.setPrice(dto.getPrice());
@@ -42,8 +54,8 @@ public class RentalDtoMapperImpl implements DTOMapper<Rental, RentalDto> {
     public RentalDto toDto(Rental rental) {
         RentalDto dto = new RentalDto();
         dto.setName(rental.getName());
-        dto.setCreatedAt(rental.getCreatedAt());
-        dto.setUpdatedAt(rental.getUpdatedAt());
+        dto.setCreatedAt(dateService.getFormattedDateToString(rental.getCreatedAt()));
+        dto.setUpdatedAt(dateService.getFormattedDateToString(rental.getUpdatedAt()));
         dto.setOwnerId(rental.getOwner().getId());
         dto.setDescription(rental.getDescription());
         dto.setPrice(rental.getPrice());

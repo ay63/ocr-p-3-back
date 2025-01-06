@@ -13,7 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -32,11 +33,10 @@ public class RentalController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<String> createRental(@Valid @ModelAttribute RentalDto rentalDTO, Authentication authentication) throws IOException {
+    public ResponseEntity<Map<String, String>> createRental(@Valid @ModelAttribute RentalDto rentalDTO, Authentication authentication) throws Exception {
 
         try {
             User user = this.userService.findUserByEmail(authentication.getName());
-
             String fileUrl = fileService.uploadFile(
                     rentalDTO.getPicture().getInputStream(),
                     rentalDTO.getPicture().getOriginalFilename(),
@@ -47,11 +47,11 @@ public class RentalController {
             rental.setPicture(fileUrl);
             rentalService.save(rental);
 
-        } catch (IOException e) {
-            throw new IOException(e.getMessage());
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
         }
 
-        return ResponseEntity.ok().body("message");
+        return ResponseEntity.ok().body(Map.of("message", "Rental created !"));
     }
 
     @GetMapping(path = "/{id}")
@@ -67,9 +67,12 @@ public class RentalController {
     }
 
     @GetMapping(path = "")
-    public Iterable<RentalResponseDto> getAllRentals() {
-        Iterable<RentalResponseDto> rentalResponseDtos = this.rentalService.findAllRentals();
-        return ResponseEntity.ok().body(rentalResponseDtos).getBody();
+    public ResponseEntity<Map<String, List<RentalResponseDto>>> getAllRentals() {
+        List<RentalResponseDto> rentalResponseDtos = this.rentalService.findAllRentals();
+
+        Map<String, List<RentalResponseDto>> response = new HashMap<>();
+        response.put("rentals", rentalResponseDtos);
+        return ResponseEntity.ok().body(response);
     }
 
     @PutMapping(path = "/{id}")
@@ -80,7 +83,7 @@ public class RentalController {
         }
         this.rentalService.updateRental(rental, rentalUpdateDTO);
 
-        return ResponseEntity.ok().body(Map.of("message", "Rental updated ! "));
+        return ResponseEntity.ok().body(Map.of("message", "Rental updated !"));
     }
 
 }

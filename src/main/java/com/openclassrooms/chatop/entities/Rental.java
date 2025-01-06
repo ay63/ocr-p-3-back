@@ -1,9 +1,11 @@
 package com.openclassrooms.chatop.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.openclassrooms.chatop.validators.multipart.ValidMultipartFile;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 
@@ -21,15 +23,17 @@ public class Rental {
     private String name;
 
     @NotNull
+    @Positive
     @Column(name = "surface", precision = 6)
     private Double surface;
 
     @NotNull
+    @Positive
     @Column(name = "price", precision = 6)
     private BigDecimal price;
 
     @Size(max = 255)
-    @NotNull
+    // @todo @ValidMultipartFile
     @Column(name = "picture")
     private String picture;
 
@@ -44,7 +48,8 @@ public class Rental {
             CascadeType.MERGE
     })
     @JoinColumn(name = "owner_id", nullable = false)
-    @JsonBackReference
+    //@todo try to remove
+//    @JsonBackReference
     private User owner;
 
     @Column(name = "created_at")
@@ -55,7 +60,9 @@ public class Rental {
     @NotNull
     private Instant updatedAt;
 
-    public Integer getId() { return id; }
+    public Integer getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

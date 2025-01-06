@@ -1,10 +1,10 @@
 package com.openclassrooms.chatop.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import java.time.Instant;
 
 public class UserDto {
 
@@ -26,10 +26,12 @@ public class UserDto {
     private String name;
 
     @NotNull
-    private Instant createdAt;
+    @JsonProperty("created_at")
+    private String createdAt;
 
     @NotNull
-    private Instant updatedAt;
+    @JsonProperty("updated_at")
+    private String updatedAt;
 
 
     public int getId() {
@@ -40,19 +42,19 @@ public class UserDto {
         this.id = id;
     }
 
-    public Instant getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Instant getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Instant updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 

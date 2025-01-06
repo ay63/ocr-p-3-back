@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.services;
 
+import com.openclassrooms.chatop.dto.mapper.implementation.user.UserLoginDtoMapperImpl;
 import com.openclassrooms.chatop.dto.user.UserDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
@@ -8,7 +9,7 @@ import com.openclassrooms.chatop.dto.mapper.implementation.user.UserRegisterDtoM
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.repositories.UserRepository;
 import org.springframework.stereotype.Service;
-
+import java.time.Instant;
 
 @Service
 public class UserService {
@@ -16,17 +17,20 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserRegisterDtoMapperImpl userRegisterMapperImpl;
     private final PasswordService passwordService;
-    private final UserDtoMapperImpl userDTOMapperImpl;
+    private final UserDtoMapperImpl userDtoMapperImpl;
+    private final UserLoginDtoMapperImpl userLoginDtoMapperImpl;
 
     UserService(UserRepository userRepository,
                 UserRegisterDtoMapperImpl userRegisterMapperImpl,
                 PasswordService passwordService,
-                UserDtoMapperImpl userDTOMapperImpl
+                UserDtoMapperImpl userDtoMapperImpl,
+                UserLoginDtoMapperImpl userLoginDtoMapperImpl
     ) {
         this.userRepository = userRepository;
         this.userRegisterMapperImpl = userRegisterMapperImpl;
         this.passwordService = passwordService;
-        this.userDTOMapperImpl = userDTOMapperImpl;
+        this.userDtoMapperImpl = userDtoMapperImpl;
+        this.userLoginDtoMapperImpl = userLoginDtoMapperImpl;
     }
 
     public boolean isUserExist(String email) {
@@ -38,6 +42,8 @@ public class UserService {
     }
 
     public User createUser(UserRegisterDto userRegisterDTO) {
+        userRegisterDTO.setCreatedAt(Instant.now());
+        userRegisterDTO.setUpdatedAt(Instant.now());
         return this.userRegisterMapperImpl.toEntity(userRegisterDTO);
     }
 
@@ -51,7 +57,11 @@ public class UserService {
     }
 
     public UserDto buildUserDTO(User user) {
-        return this.userDTOMapperImpl.toDto(user);
+        return this.userDtoMapperImpl.toDto(user);
+    }
+
+    public User userLoginDtoToUser(UserLoginDto userLoginDTO) {
+        return this.userLoginDtoMapperImpl.toEntity(userLoginDTO);
     }
 
 }

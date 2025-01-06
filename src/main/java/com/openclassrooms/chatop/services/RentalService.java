@@ -20,9 +20,10 @@ public class RentalService {
     private final RentalRepository rentalRepository;
     private final RentalResponseDtoMapperImpl rentalResponseDtoMapper;
 
-    RentalService(RentalDtoMapperImpl rentalDTOMapperImpl,
-                  RentalRepository rentalRepository,
-                  RentalResponseDtoMapperImpl rentalResponseDtoMapper
+    RentalService(
+            RentalDtoMapperImpl rentalDTOMapperImpl,
+            RentalRepository rentalRepository,
+            RentalResponseDtoMapperImpl rentalResponseDtoMapper
     ) {
         this.rentalDTOMapperImpl = rentalDTOMapperImpl;
         this.rentalRepository = rentalRepository;
@@ -38,8 +39,6 @@ public class RentalService {
     }
 
     public void save(Rental rental) {
-        rental.setCreatedAt(Instant.now());
-        rental.setUpdatedAt(Instant.now());
         rentalRepository.save(rental);
     }
 
