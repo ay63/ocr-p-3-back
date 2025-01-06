@@ -1,11 +1,8 @@
 package com.openclassrooms.chatop.dto.rental;
 
-import com.openclassrooms.chatop.validators.multipart.ValidMultipartFile;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import org.springframework.web.multipart.MultipartFile;
 import java.math.BigDecimal;
 
 public class RentalUpdateDto {
@@ -21,7 +18,6 @@ public class RentalUpdateDto {
     @NotNull
     @Positive
     private BigDecimal price;
-
 
     @NotBlank
     @NotNull

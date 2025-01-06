@@ -1,6 +1,5 @@
 package com.openclassrooms.chatop.entities;
 
-import com.openclassrooms.chatop.validators.multipart.ValidMultipartFile;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -33,7 +32,7 @@ public class Rental {
     private BigDecimal price;
 
     @Size(max = 255)
-    // @todo @ValidMultipartFile
+    @NotNull
     @Column(name = "picture")
     private String picture;
 
@@ -48,8 +47,6 @@ public class Rental {
             CascadeType.MERGE
     })
     @JoinColumn(name = "owner_id", nullable = false)
-    //@todo try to remove
-//    @JsonBackReference
     private User owner;
 
     @Column(name = "created_at")

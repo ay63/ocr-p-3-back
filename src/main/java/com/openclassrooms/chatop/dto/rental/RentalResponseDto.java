@@ -1,9 +1,7 @@
 package com.openclassrooms.chatop.dto.rental;
 
-import jakarta.validation.constraints.NotNull;
 
 public class RentalResponseDto extends RentalDtoAbstract {
-
 
     private Integer id;
 
@@ -20,7 +18,6 @@ public class RentalResponseDto extends RentalDtoAbstract {
     public void setId(Integer id) {
         this.id = id;
     }
-
 
     public void setPicture(String picture) {
         this.picture = picture;

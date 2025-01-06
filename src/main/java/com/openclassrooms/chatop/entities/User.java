@@ -34,8 +34,6 @@ public class User {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    //@todo try to remove
-//    @JsonBackReference
     @OneToMany(mappedBy = "owner")
     private List<Rental> rentals;
 

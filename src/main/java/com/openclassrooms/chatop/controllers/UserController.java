@@ -2,6 +2,7 @@ package com.openclassrooms.chatop.controllers;
 
 import com.openclassrooms.chatop.dto.user.UserDto;
 import com.openclassrooms.chatop.entities.User;
+import com.openclassrooms.chatop.exceptions.UnauthorizedException;
 import com.openclassrooms.chatop.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class UserController {
     public ResponseEntity<UserDto> getUser(@PathVariable("id") int id) {
         User user = this.userService.findUserById(id);
         if(user == null) {
-            return ResponseEntity.notFound().build();
+            throw new UnauthorizedException();
         }
         UserDto userDto = this.userService.buildUserDTO(user);
         return ResponseEntity.ok(userDto);

@@ -14,14 +14,14 @@ import java.util.UUID;
 @Service
 public class FileService {
 
-    @Autowired
-    AmazonS3 s3Client;
-
+    private final AmazonS3 s3Client;
     private final String bucketName;
 
     FileService(
+            AmazonS3 s3Client,
             @Value("${aws.bucket.name}") String bucketName
     ) {
+        this.s3Client = s3Client;
         this.bucketName = bucketName;
     }
 
