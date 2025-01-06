@@ -5,11 +5,12 @@ import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalUpdateDto;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
+import com.openclassrooms.chatop.exceptions.BadRequestException;
+import com.openclassrooms.chatop.exceptions.UnauthorizedException;
 import com.openclassrooms.chatop.services.FileService;
 import com.openclassrooms.chatop.services.RentalService;
 import com.openclassrooms.chatop.services.UserService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +35,10 @@ public class RentalController {
 
     @PostMapping(path = "")
     public ResponseEntity<Map<String, String>> createRental(@Valid @ModelAttribute RentalDto rentalDTO, Authentication authentication) throws Exception {
-
         try {
             User user = this.userService.findUserByEmail(authentication.getName());
+            if (rentalDTO.getPicture().isEmpty()) throw new BadRequestException();
+
             String fileUrl = fileService.uploadFile(
                     rentalDTO.getPicture().getInputStream(),
                     rentalDTO.getPicture().getOriginalFilename(),
@@ -47,7 +49,11 @@ public class RentalController {
             rental.setPicture(fileUrl);
             rentalService.save(rental);
 
-        } catch (Exception e) {
+        }
+        catch (BadRequestException e) {
+            throw new BadRequestException();
+        }
+        catch (Exception e) {
             throw new Exception(e.getMessage());
         }
 
@@ -57,12 +63,10 @@ public class RentalController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<RentalResponseDto> getRental(@PathVariable("id") int id) {
         Rental rental = this.rentalService.findRentalById(id).orElse(null);
-        RentalResponseDto rentalResponseDTO = rentalService.buildRentalResponseDTO(rental);
-
         if (rental == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new UnauthorizedException();
         }
-
+        RentalResponseDto rentalResponseDTO = rentalService.buildRentalResponseDTO(rental);
         return ResponseEntity.ok().body(rentalResponseDTO);
     }
 
@@ -78,11 +82,10 @@ public class RentalController {
     @PutMapping(path = "/{id}")
     public ResponseEntity<Map<String, String>> updateRental(@PathVariable("id") int id, @Valid @ModelAttribute RentalUpdateDto rentalUpdateDTO) {
         Rental rental = this.rentalService.findRentalById(id).orElse(null);
-        if (rental == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-        this.rentalService.updateRental(rental, rentalUpdateDTO);
 
+        if (rental == null) throw new UnauthorizedException();
+
+        this.rentalService.updateRental(rental, rentalUpdateDTO);
         return ResponseEntity.ok().body(Map.of("message", "Rental updated !"));
     }
 
