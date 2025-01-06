@@ -3,10 +3,17 @@ package com.openclassrooms.chatop.dto.mapper.implementation.user;
 import com.openclassrooms.chatop.dto.user.UserDto;
 import com.openclassrooms.chatop.dto.mapper.implementation.DTOMapper;
 import com.openclassrooms.chatop.entities.User;
+import com.openclassrooms.chatop.services.DateService;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserDtoMapperImpl implements DTOMapper<User, UserDto> {
+
+    private final DateService dateService;
+
+    UserDtoMapperImpl(DateService dateService) {
+        this.dateService = dateService;
+    }
 
     @Override
     public User toEntity(UserDto dto) {
@@ -14,8 +21,8 @@ public class UserDtoMapperImpl implements DTOMapper<User, UserDto> {
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
-        user.setCreatedAt(dto.getCreatedAt());
-        user.setUpdatedAt(dto.getUpdatedAt());
+        user.setCreatedAt(dateService.getFormattedDateToInstant(dto.getCreatedAt()));
+        user.setUpdatedAt(dateService.getFormattedDateToInstant(dto.getUpdatedAt()));
         return user;
     }
 
@@ -26,8 +33,8 @@ public class UserDtoMapperImpl implements DTOMapper<User, UserDto> {
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         dto.setPassword(user.getPassword());
-        dto.setCreatedAt(user.getCreatedAt());
-        dto.setUpdatedAt(user.getUpdatedAt());
+        dto.setCreatedAt(dateService.getFormattedDateToString(user.getCreatedAt()));
+        dto.setUpdatedAt(dateService.getFormattedDateToString(user.getUpdatedAt()));
         return dto;
     }
 }

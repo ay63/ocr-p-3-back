@@ -25,8 +25,7 @@ public class AuthController {
 
     public AuthController(JwtService jwtService,
                           UserService userService,
-                          UserLoginDtoMapperImpl userLoginMapperImpl)
-    {
+                          UserLoginDtoMapperImpl userLoginMapperImpl) {
         this.userService = userService;
         this.jwtService = jwtService;
         this.userLoginMapperImpl = userLoginMapperImpl;
@@ -50,8 +49,7 @@ public class AuthController {
     public ResponseEntity<Map<String, String>> login(@Valid @RequestBody UserLoginDto userLoginDTO) {
 
         if (userService.userHasValidCredentials(userLoginDTO)) {
-            //@todo ask to mentor if i cant do that
-            User user = userLoginMapperImpl.toEntity(userLoginDTO);
+            User user = this.userService.userLoginDtoToUser(userLoginDTO);
             return ResponseEntity
                     .ok().body(Map.of("token", jwtService.generateToken(user)));
         }
@@ -66,7 +64,7 @@ public class AuthController {
         User user = this.userService.findUserByEmail(authentication.getName());
         UserDto userDTO = this.userService.buildUserDTO(user);
 
-        if(user == null) {
+        if (user == null) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED).build();
         }

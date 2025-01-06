@@ -3,6 +3,7 @@ package com.openclassrooms.chatop.entities;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+
 import java.time.Instant;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class User {
     @Column(name = "name")
     private String name;
 
-    @Size(max = 255)
+    @Size(min = 8, max = 255)
     @Column(name = "password")
     private String password;
 
@@ -33,11 +34,14 @@ public class User {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    @JsonBackReference
+    //@todo try to remove
+//    @JsonBackReference
     @OneToMany(mappedBy = "owner")
     private List<Rental> rentals;
 
-    public Integer getId() { return id; }
+    public Integer getId() {
+        return id;
+    }
 
     public String getEmail() {
         return email;

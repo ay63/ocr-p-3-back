@@ -21,6 +21,8 @@ public class UserRegisterDtoMapperImpl implements DTOMapper<User, UserRegisterDt
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setPassword(passwordService.hashPassword(dto.getPassword()));
+        user.setCreatedAt(dto.getCreatedAt());
+        user.setUpdatedAt(dto.getUpdatedAt());
         return user;
     }
 
