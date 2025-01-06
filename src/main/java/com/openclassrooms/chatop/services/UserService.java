@@ -41,6 +41,10 @@ public class UserService {
         return this.userRepository.findByEmail(email);
     }
 
+    public User findUserById(int id) {
+        return this.userRepository.findById(id).orElse(null);
+    }
+
     public User createUser(UserRegisterDto userRegisterDTO) {
         userRegisterDTO.setCreatedAt(Instant.now());
         userRegisterDTO.setUpdatedAt(Instant.now());
