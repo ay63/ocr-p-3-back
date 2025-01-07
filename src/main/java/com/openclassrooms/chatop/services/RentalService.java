@@ -30,27 +30,61 @@ public class RentalService {
         this.rentalResponseDtoMapper = rentalResponseDtoMapper;
     }
 
+    /**
+     * Converts a RentalDto to a Rental entity.
+     *
+     * @param rentalDTO RentalDto
+     * @return Rental
+     */
     public Rental buildRental(RentalDto rentalDTO) {
         return rentalDTOMapperImpl.toEntity(rentalDTO);
     }
 
+    /**
+     * Converts a Rental entity to a RentalResponseDto.
+     *
+     * @param rental rental
+     * @return RentalResponseDto
+     */
     public RentalResponseDto buildRentalResponseDTO(Rental rental) {
         return this.rentalResponseDtoMapper.toDto(rental);
     }
 
+    /**
+     * Saves the given Rental entity to the repository.
+     *
+     * @param rental Rental
+     */
     public void save(Rental rental) {
         rentalRepository.save(rental);
     }
 
-    public Optional<Rental> findRentalById(int id) {
-        return this.rentalRepository.findById(id);
+    /**
+     * Finds a Rental entity by its ID.
+     *
+     * @param id int
+     * @return Rental
+     */
+    public Rental findRentalById(int id) {
+        return this.rentalRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Retrieves all Rental entities and converts them to RentalResponseDto.
+     *
+     * @return List<RentalResponseDto>
+     */
     public List<RentalResponseDto> findAllRentals() {
         List<Rental> rentals = (List<Rental>) this.rentalRepository.findAll();
         return rentals.stream().map(this.rentalResponseDtoMapper::toDto).toList();
     }
 
+    /**
+     * Updates an existing Rental entity with data from RentalUpdateDto.
+     *
+     * @param rental          Rental
+     * @param rentalUpdateDTO RentalUpdateDto
+     */
     public void updateRental(Rental rental, RentalUpdateDto rentalUpdateDTO) {
         rental.setUpdatedAt(Instant.now());
         rental.setSurface(rentalUpdateDTO.getSurface());

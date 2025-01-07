@@ -20,6 +20,11 @@ public class JwtService {
         this.jwtEncoder = jwtEncoder;
     }
 
+    /**
+     * Set claims and get a valid token
+     * @param user User
+     * @return token String
+     */
     public String generateToken(User user) {
         Instant now = Instant.now();
         JwtClaimsSet claims = JwtClaimsSet.builder()
