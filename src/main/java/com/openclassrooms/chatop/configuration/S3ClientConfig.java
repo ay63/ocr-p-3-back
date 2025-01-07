@@ -19,8 +19,13 @@ public class S3ClientConfig {
     @Value("${aws.secretKey}")
     private String secretKey;
 
+    /**
+     * Configuration for AWS S3 client
+     *
+     * @return AmazonS3
+     */
     @Bean
-    public AmazonS3 initS3Client(){
+    public AmazonS3 initS3Client() {
         AWSCredentials credentials = new BasicAWSCredentials(this.accessKey, this.secretKey);
         return AmazonS3ClientBuilder.standard()
                 .withRegion(Regions.EU_NORTH_1)

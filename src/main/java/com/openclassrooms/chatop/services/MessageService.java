@@ -18,10 +18,20 @@ public class MessageService {
         this.messageDtoMapperImpl = messageDtoMapperImpl;
     }
 
+    /**
+     * Save message object
+     * @param message Message
+     */
     public void saveMessage(Message message) {
         this.messageRepository.save(message);
     }
 
+
+    /**
+     * Build Message object from MessageDto
+     * @param messageDto MessageDto
+     * @return Message
+     */
     public Message buildMessageFromDto(MessageDto messageDto) {
         return this.messageDtoMapperImpl.toEntity(messageDto);
     }

@@ -11,10 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
+import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -37,6 +34,11 @@ public class SpringSecurityConfig {
             "/swagger-ui.html"
     };
 
+    /**
+     * Configures the security filter chain with stateless sessions, public endpoints, and JWT authentication.
+     * @param http HttpSecurity
+     * @return HttpSecurity
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -50,17 +52,30 @@ public class SpringSecurityConfig {
                 .build();
     }
 
+    /**
+     * Create a BCryptPasswordEncoder
+     * @return BCryptPasswordEncoder
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+
+    /**
+     * Creates a JwtDecoder
+     * @return a configured JwtDecoder
+     */
     @Bean
     public JwtDecoder jwtDecoder() {
         SecretKeySpec secretKey = new SecretKeySpec(this.key.getBytes(), JWT_SIGNATURE_ALGORITHM);
         return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(MAC_ALGORITHM).build();
     }
 
+    /**
+     * Creates a JwtEncoder.
+     * @return a configured JwtEncoder.
+     */
     @Bean
     public JwtEncoder jwtEncoder() {
         return new NimbusJwtEncoder(new ImmutableSecret<>(this.key.getBytes()));

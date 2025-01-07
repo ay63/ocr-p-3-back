@@ -25,6 +25,15 @@ public class FileService {
         this.bucketName = bucketName;
     }
 
+    /**
+     * Upload file into S3 bucket
+     *
+     * @param inputStream InputStream
+     * @param fileName String
+     * @param contentType String
+     * @return url S3
+     * @throws AmazonS3Exception
+     */
     public String uploadFile(InputStream inputStream, String fileName, String contentType) {
 
         try {

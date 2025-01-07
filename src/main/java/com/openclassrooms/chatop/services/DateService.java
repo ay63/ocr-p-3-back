@@ -13,6 +13,11 @@ public class DateService {
     private static final String PATTERN_FORMAT = "YYYY/MM/DD";
 
 
+    /**
+     * Format Instant into string date format
+     * @param date Instant
+     * @return String ex: 2025/01/31
+     */
     public String getFormattedDateToString(Instant date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_FORMAT)
                 .withZone(ZoneId.systemDefault());
@@ -20,6 +25,11 @@ public class DateService {
         return formatter.format(date);
     }
 
+    /**
+     *  Get Instant object from string date (ex: 2025/01/31)
+     * @param date Instant
+     * @return String ex: 2025/01/31
+     */
     public Instant getFormattedDateToInstant(String date) {
         return  Instant.parse(date);
     }

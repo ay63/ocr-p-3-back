@@ -1,17 +1,25 @@
 package com.openclassrooms.chatop.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.Instant;
 
 public class MessageDto {
 
     @JsonProperty("rental_id")
+    @NotBlank
+    @NotNull
     private Integer rentalId;
 
     @JsonProperty("user_id")
+    @NotBlank
+    @NotNull
     private Integer userId;
 
+    @NotBlank
+    @NotNull
     private String message;
 
     private Instant createdAt;
