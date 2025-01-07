@@ -26,6 +26,9 @@ public class SpringSecurityConfig {
     @Value("${app.token.key}")
     private String key;
 
+    public static final String JWT_SIGNATURE_ALGORITHM = "HmacSHA512";
+    public static final MacAlgorithm MAC_ALGORITHM = MacAlgorithm.HS512;
+
     private final static String[] publicEndPoints = {
             "/auth/login",
             "/auth/register",
@@ -54,8 +57,8 @@ public class SpringSecurityConfig {
 
     @Bean
     public JwtDecoder jwtDecoder() {
-        SecretKeySpec secretKey = new SecretKeySpec(this.key.getBytes(), "HmacSHA256");
-        return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(MacAlgorithm.HS256).build();
+        SecretKeySpec secretKey = new SecretKeySpec(this.key.getBytes(), JWT_SIGNATURE_ALGORITHM);
+        return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(MAC_ALGORITHM).build();
     }
 
     @Bean
