@@ -6,12 +6,12 @@ import com.openclassrooms.chatop.dto.mapper.implementation.rental.RentalDtoMappe
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalUpdateDto;
 import com.openclassrooms.chatop.entities.Rental;
+import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.repositories.RentalRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RentalService {
@@ -19,15 +19,17 @@ public class RentalService {
     private final RentalDtoMapperImpl rentalDTOMapperImpl;
     private final RentalRepository rentalRepository;
     private final RentalResponseDtoMapperImpl rentalResponseDtoMapper;
+    private final FileService fileService;
 
     RentalService(
             RentalDtoMapperImpl rentalDTOMapperImpl,
             RentalRepository rentalRepository,
-            RentalResponseDtoMapperImpl rentalResponseDtoMapper
+            RentalResponseDtoMapperImpl rentalResponseDtoMapper, FileService fileService
     ) {
         this.rentalDTOMapperImpl = rentalDTOMapperImpl;
         this.rentalRepository = rentalRepository;
         this.rentalResponseDtoMapper = rentalResponseDtoMapper;
+        this.fileService = fileService;
     }
 
     /**
@@ -36,7 +38,7 @@ public class RentalService {
      * @param rentalDTO RentalDto
      * @return Rental
      */
-    public Rental buildRental(RentalDto rentalDTO) {
+    public Rental rentalDtoToRental(RentalDto rentalDTO) {
         return rentalDTOMapperImpl.toEntity(rentalDTO);
     }
 
@@ -46,7 +48,7 @@ public class RentalService {
      * @param rental rental
      * @return RentalResponseDto
      */
-    public RentalResponseDto buildRentalResponseDTO(Rental rental) {
+    public RentalResponseDto rentalToRentalResponseDto(Rental rental) {
         return this.rentalResponseDtoMapper.toDto(rental);
     }
 
@@ -92,6 +94,20 @@ public class RentalService {
         rental.setDescription(rentalUpdateDTO.getDescription());
         rental.setName(rentalUpdateDTO.getName());
         this.rentalRepository.save(rental);
+    }
+
+
+    public Rental createRentalWithFileUpload(User user, RentalDto rentalDto) throws Exception {
+        String fileUrl = fileService.uploadFile(
+                rentalDto.getPicture().getInputStream(),
+                rentalDto.getPicture().getOriginalFilename()
+        );
+
+        rentalDto.setOwnerId(user.getId());
+        Rental rental = this.rentalDtoToRental(rentalDto);
+        rental.setPicture(fileUrl);
+
+        return rental;
     }
 
 }

@@ -32,13 +32,13 @@ public class RentalDtoMapperImpl implements DTOMapper<Rental, RentalDto> {
         if (dto.getCreatedAt() == null) {
             rental.setCreatedAt(Instant.now());
         } else {
-            rental.setCreatedAt(dateService.getFormattedDateToInstant(dto.getCreatedAt()));
+            rental.setCreatedAt(dateService.formatStringDateToInstant(dto.getCreatedAt()));
         }
 
         if(dto.getUpdatedAt() == null){
             rental.setUpdatedAt(Instant.now());
         }else{
-            rental.setUpdatedAt(dateService.getFormattedDateToInstant(dto.getUpdatedAt()));
+            rental.setUpdatedAt(dateService.formatStringDateToInstant(dto.getUpdatedAt()));
         }
 
         rental.setName(dto.getName());
@@ -54,8 +54,8 @@ public class RentalDtoMapperImpl implements DTOMapper<Rental, RentalDto> {
     public RentalDto toDto(Rental rental) {
         RentalDto dto = new RentalDto();
         dto.setName(rental.getName());
-        dto.setCreatedAt(dateService.getFormattedDateToString(rental.getCreatedAt()));
-        dto.setUpdatedAt(dateService.getFormattedDateToString(rental.getUpdatedAt()));
+        dto.setCreatedAt(dateService.formatInstantToDateString(rental.getCreatedAt()));
+        dto.setUpdatedAt(dateService.formatInstantToDateString(rental.getUpdatedAt()));
         dto.setOwnerId(rental.getOwner().getId());
         dto.setDescription(rental.getDescription());
         dto.setPrice(rental.getPrice());

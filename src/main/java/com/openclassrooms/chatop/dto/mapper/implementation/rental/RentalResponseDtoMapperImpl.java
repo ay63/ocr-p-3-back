@@ -27,8 +27,8 @@ public class RentalResponseDtoMapperImpl implements DTOMapper<Rental, RentalResp
         dto.setId(rental.getId());
         dto.setPicture(rental.getPicture());
         dto.setName(rental.getName());
-        dto.setCreatedAt(dateService.getFormattedDateToString(rental.getCreatedAt()));
-        dto.setUpdatedAt(dateService.getFormattedDateToString(rental.getUpdatedAt()));
+        dto.setCreatedAt(dateService.formatInstantToDateString(rental.getCreatedAt()));
+        dto.setUpdatedAt(dateService.formatInstantToDateString(rental.getUpdatedAt()));
         dto.setOwnerId(rental.getOwner().getId());
         dto.setDescription(rental.getDescription());
         dto.setPrice(rental.getPrice());

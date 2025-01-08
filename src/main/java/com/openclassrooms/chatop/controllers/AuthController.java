@@ -3,9 +3,9 @@ package com.openclassrooms.chatop.controllers;
 import com.openclassrooms.chatop.dto.user.UserDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
-import com.openclassrooms.chatop.dto.mapper.implementation.user.UserLoginDtoMapperImpl;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.exceptions.BadRequestException;
+import com.openclassrooms.chatop.exceptions.NotFoundException;
 import com.openclassrooms.chatop.exceptions.UnauthorizedException;
 import com.openclassrooms.chatop.services.JwtService;
 import com.openclassrooms.chatop.services.UserService;
@@ -22,12 +22,10 @@ public class AuthController {
 
     private final JwtService jwtService;
     private final UserService userService;
-    private final UserLoginDtoMapperImpl userLoginMapperImpl;
 
-    public AuthController(JwtService jwtService, UserService userService, UserLoginDtoMapperImpl userLoginMapperImpl) {
+    public AuthController(JwtService jwtService, UserService userService) {
         this.userService = userService;
         this.jwtService = jwtService;
-        this.userLoginMapperImpl = userLoginMapperImpl;
     }
 
     @PostMapping("/register")
@@ -38,8 +36,8 @@ public class AuthController {
 
         User newUser = userService.createUser(userRegisterDTO);
         userService.save(newUser);
-        return ResponseEntity.ok().body(Map.of("token", jwtService.generateToken(newUser)));
 
+        return ResponseEntity.ok().body(Map.of("token", jwtService.generateToken(newUser)));
     }
 
     @PostMapping("/login")
@@ -47,16 +45,17 @@ public class AuthController {
         if (!userService.userHasValidCredentials(userLoginDTO)) throw new UnauthorizedException();
 
         User user = this.userService.userLoginDtoToUser(userLoginDTO);
+
         return ResponseEntity.ok().body(Map.of("token", jwtService.generateToken(user)));
     }
-
 
     @GetMapping("/me")
     public ResponseEntity<UserDto> me(Authentication authentication) {
         User user = this.userService.findUserByEmail(authentication.getName());
-        UserDto userDTO = this.userService.buildUserDTO(user);
 
-        if (user == null) throw new UnauthorizedException();
+        if (user == null) throw new NotFoundException();
+
+        UserDto userDTO = this.userService.userToUserDto(user);
 
         return ResponseEntity.ok().body(userDTO);
     }
