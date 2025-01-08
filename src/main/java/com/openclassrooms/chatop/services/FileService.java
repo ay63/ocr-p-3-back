@@ -29,21 +29,13 @@ public class FileService {
      * Upload file into S3 bucket
      *
      * @param inputStream InputStream
-     * @param fileName String
-     * @param contentType String
+     * @param fileName    String
      * @return url S3
-     * @throws AmazonS3Exception
      */
-    public String uploadFile(InputStream inputStream, String fileName, String contentType) {
-
-        try {
-            String key = UUID.randomUUID().toString() + "_" + fileName;
-            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, inputStream, null);
-            s3Client.putObject(putObjectRequest);
-            return String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, Regions.EU_NORTH_1.getName(), key);
-
-        } catch (AmazonS3Exception e) {
-            throw new AmazonS3Exception(e.getMessage());
-        }
+    public String uploadFile(InputStream inputStream, String fileName) throws AmazonS3Exception {
+        String key = UUID.randomUUID() + "_" + fileName;
+        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, inputStream, null);
+        s3Client.putObject(putObjectRequest);
+        return String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, Regions.EU_NORTH_1.getName(), key);
     }
 }

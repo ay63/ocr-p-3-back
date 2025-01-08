@@ -13,13 +13,16 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final MessageDtoMapperImpl messageDtoMapperImpl;
 
-    MessageService(MessageRepository messageRepository, MessageDtoMapperImpl messageDtoMapperImpl){
+    MessageService(MessageRepository messageRepository,
+                   MessageDtoMapperImpl messageDtoMapperImpl
+    ) {
         this.messageRepository = messageRepository;
         this.messageDtoMapperImpl = messageDtoMapperImpl;
     }
 
     /**
      * Save message object
+     *
      * @param message Message
      */
     public void saveMessage(Message message) {
@@ -29,6 +32,7 @@ public class MessageService {
 
     /**
      * Build Message object from MessageDto
+     *
      * @param messageDto MessageDto
      * @return Message
      */

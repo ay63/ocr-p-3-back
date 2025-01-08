@@ -15,10 +15,11 @@ public class DateService {
 
     /**
      * Format Instant into string date format
+     *
      * @param date Instant
      * @return String ex: 2025/01/31
      */
-    public String getFormattedDateToString(Instant date) {
+    public String formatInstantToDateString(Instant date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_FORMAT)
                 .withZone(ZoneId.systemDefault());
 
@@ -26,11 +27,12 @@ public class DateService {
     }
 
     /**
-     *  Get Instant object from string date (ex: 2025/01/31)
+     * Get Instant object from string date (ex: 2025/01/31)
+     *
      * @param date Instant
      * @return String ex: 2025/01/31
      */
-    public Instant getFormattedDateToInstant(String date) {
-        return  Instant.parse(date);
+    public Instant formatStringDateToInstant(String date) {
+        return Instant.parse(date);
     }
 }

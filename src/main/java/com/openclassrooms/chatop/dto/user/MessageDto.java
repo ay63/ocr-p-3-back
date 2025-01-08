@@ -9,12 +9,10 @@ import java.time.Instant;
 public class MessageDto {
 
     @JsonProperty("rental_id")
-    @NotBlank
     @NotNull
     private Integer rentalId;
 
     @JsonProperty("user_id")
-    @NotBlank
     @NotNull
     private Integer userId;
 

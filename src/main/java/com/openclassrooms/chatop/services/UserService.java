@@ -9,6 +9,7 @@ import com.openclassrooms.chatop.dto.mapper.implementation.user.UserRegisterDtoM
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.repositories.UserRepository;
 import org.springframework.stereotype.Service;
+
 import java.time.Instant;
 
 @Service
@@ -20,7 +21,12 @@ public class UserService {
     private final UserDtoMapperImpl userDtoMapperImpl;
     private final UserLoginDtoMapperImpl userLoginDtoMapperImpl;
 
-    UserService(UserRepository userRepository, UserRegisterDtoMapperImpl userRegisterMapperImpl, PasswordService passwordService, UserDtoMapperImpl userDtoMapperImpl, UserLoginDtoMapperImpl userLoginDtoMapperImpl) {
+    UserService(UserRepository userRepository,
+                UserRegisterDtoMapperImpl userRegisterMapperImpl,
+                PasswordService passwordService,
+                UserDtoMapperImpl userDtoMapperImpl,
+                UserLoginDtoMapperImpl userLoginDtoMapperImpl
+    ) {
         this.userRepository = userRepository;
         this.userRegisterMapperImpl = userRegisterMapperImpl;
         this.passwordService = passwordService;
@@ -96,7 +102,7 @@ public class UserService {
      * @param user User
      * @return UserDto
      */
-    public UserDto buildUserDTO(User user) {
+    public UserDto userToUserDto(User user) {
         return this.userDtoMapperImpl.toDto(user);
     }
 

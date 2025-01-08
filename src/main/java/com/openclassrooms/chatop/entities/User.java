@@ -1,6 +1,5 @@
 package com.openclassrooms.chatop.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 

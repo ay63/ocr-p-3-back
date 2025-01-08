@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Map;
 
 @RestController()
@@ -27,9 +26,8 @@ public class MessageController {
     @PostMapping(path = "")
     public ResponseEntity<Map<String, String>> postMessage(@Valid @RequestBody MessageDto messageDto) {
         Message message = this.messageService.buildMessageFromDto(messageDto);
-        if (message == null) {
-           throw new BadRequestException();
-        }
+
+        if (message == null)  throw new BadRequestException();
 
         this.messageService.saveMessage(message);
         return ResponseEntity.ok().body(Map.of("message", "Message send with success"));
