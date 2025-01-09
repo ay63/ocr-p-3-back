@@ -3,6 +3,7 @@ package com.openclassrooms.chatop.configuration;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,9 +39,6 @@ public class SpringSecurityConfig {
 
     private static final String PRIVATE_KEY = "PRIVATE";
     private static final String PUBLIC_KEY = "PUBLIC";
-
-    private RSAPublicKey publicKey;
-    private RSAPrivateKey privateKey;
 
     private final static String[] publicEndPoints = {
             "/auth/login",
@@ -121,7 +119,7 @@ public class SpringSecurityConfig {
      * Sanitize the RSA key from header and footer
      *
      * @param key     String
-     * @param typeKey String must be PRIVATE or Public, you must respect the upper case format
+     * @param typeKey String must be PRIVATE or PUBLIC, you must respect the upper case format
      * @return String
      */
     private String getSanitizeRsaKey(String key, String typeKey) {
@@ -150,5 +148,4 @@ public class SpringSecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

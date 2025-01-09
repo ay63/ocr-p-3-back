@@ -13,7 +13,6 @@ public class PasswordService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
     /**
      * Hash raw password string
      *

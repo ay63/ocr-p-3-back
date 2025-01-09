@@ -34,8 +34,8 @@ public class AuthController {
 
         if (userExist) throw new BadRequestException();
 
-        User newUser = userService.createUser(userRegisterDTO);
-        userService.save(newUser);
+        User newUser = userService.userRegisterDtoToUser(userRegisterDTO);
+        userService.saveUser(newUser);
 
         return ResponseEntity.ok().body(Map.of("token", jwtService.generateToken(newUser)));
     }
@@ -55,7 +55,7 @@ public class AuthController {
 
         if (user == null) throw new NotFoundException();
 
-        UserDto userDTO = this.userService.userToUserDto(user);
+        UserDto userDTO = this.userService.userObjectToUserDto(user);
 
         return ResponseEntity.ok().body(userDTO);
     }

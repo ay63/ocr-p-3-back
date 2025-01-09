@@ -55,7 +55,6 @@ abstract class RentalDtoAbstract {
         this.price = price;
     }
 
-
     public String getDescription() {
         return description;
     }

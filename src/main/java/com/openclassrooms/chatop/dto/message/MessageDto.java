@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.dto.user;
+package com.openclassrooms.chatop.dto.message;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;

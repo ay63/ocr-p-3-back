@@ -1,22 +1,23 @@
-package com.openclassrooms.chatop.dto.mapper.implementation.rental;
+package com.openclassrooms.chatop.mapper.implementation.rental;
 
 import com.openclassrooms.chatop.dto.rental.RentalDto;
-import com.openclassrooms.chatop.dto.mapper.implementation.DTOMapper;
+import com.openclassrooms.chatop.mapper.implementation.DtoMapper;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.repositories.UserRepository;
 import com.openclassrooms.chatop.services.DateService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Component;
+
 import java.time.Instant;
 
 @Component
-public class RentalDtoMapperImpl implements DTOMapper<Rental, RentalDto> {
+public class RentalDtoMapperImpl implements DtoMapper<Rental, RentalDto> {
 
     private final UserRepository userRepository;
     private final DateService dateService;
 
     public RentalDtoMapperImpl(UserRepository userRepository, DateService dateService) {
-
         this.userRepository = userRepository;
         this.dateService = dateService;
     }
@@ -24,23 +25,24 @@ public class RentalDtoMapperImpl implements DTOMapper<Rental, RentalDto> {
     @Override
     public Rental toEntity(RentalDto dto) {
 
-        User user = this.userRepository.findById(dto.getOwnerId()).orElse(null);
+        if (dto == null) {
+            throw new IllegalArgumentException("DTO cannot be null");
+        }
 
-        if (user == null) return null;
+        User user = this.userRepository.findById(dto.getOwnerId())
+                .orElseThrow(() -> new EntityNotFoundException(String.format("User with ID %d not found", dto.getOwnerId())));
+
+        Instant now = Instant.now();
+        Instant createdAt = (dto.getCreatedAt() != null)
+                ? dateService.formatStringDateToInstant(dto.getCreatedAt())
+                : now;
+        Instant updatedAt = (dto.getUpdatedAt() != null)
+                ? dateService.formatStringDateToInstant(dto.getUpdatedAt())
+                : now;
 
         Rental rental = new Rental();
-        if (dto.getCreatedAt() == null) {
-            rental.setCreatedAt(Instant.now());
-        } else {
-            rental.setCreatedAt(dateService.formatStringDateToInstant(dto.getCreatedAt()));
-        }
-
-        if(dto.getUpdatedAt() == null){
-            rental.setUpdatedAt(Instant.now());
-        }else{
-            rental.setUpdatedAt(dateService.formatStringDateToInstant(dto.getUpdatedAt()));
-        }
-
+        rental.setCreatedAt(createdAt);
+        rental.setUpdatedAt(updatedAt);
         rental.setName(dto.getName());
         rental.setOwner(user);
         rental.setDescription(dto.getDescription());

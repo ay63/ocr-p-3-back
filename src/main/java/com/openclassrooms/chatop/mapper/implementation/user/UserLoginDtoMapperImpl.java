@@ -1,12 +1,12 @@
-package com.openclassrooms.chatop.dto.mapper.implementation.user;
+package com.openclassrooms.chatop.mapper.implementation.user;
 
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
-import com.openclassrooms.chatop.dto.mapper.implementation.DTOMapper;
+import com.openclassrooms.chatop.mapper.implementation.DtoMapper;
 import com.openclassrooms.chatop.entities.User;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserLoginDtoMapperImpl implements DTOMapper<User, UserLoginDto> {
+public class UserLoginDtoMapperImpl implements DtoMapper<User, UserLoginDto> {
 
     @Override
     public User toEntity(UserLoginDto dto) {

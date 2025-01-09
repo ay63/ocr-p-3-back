@@ -19,7 +19,7 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Size(max = 255)
+    @Size(min= 4, max = 255)
     @Column(name = "name")
     private String name;
 

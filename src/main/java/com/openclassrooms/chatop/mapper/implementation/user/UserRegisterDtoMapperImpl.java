@@ -1,13 +1,15 @@
-package com.openclassrooms.chatop.dto.mapper.implementation.user;
+package com.openclassrooms.chatop.mapper.implementation.user;
 
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
-import com.openclassrooms.chatop.dto.mapper.implementation.DTOMapper;
+import com.openclassrooms.chatop.mapper.implementation.DtoMapper;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.services.PasswordService;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+
 @Component
-public class UserRegisterDtoMapperImpl implements DTOMapper<User, UserRegisterDto> {
+public class UserRegisterDtoMapperImpl implements DtoMapper<User, UserRegisterDto> {
 
     private final PasswordService passwordService;
 
@@ -17,6 +19,15 @@ public class UserRegisterDtoMapperImpl implements DTOMapper<User, UserRegisterDt
 
     @Override
     public User toEntity(UserRegisterDto dto) {
+
+        if (dto.getCreatedAt() == null) {
+            dto.setCreatedAt(Instant.now());
+        }
+
+        if (dto.getUpdatedAt() == null) {
+            dto.setUpdatedAt(Instant.now());
+        }
+
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());

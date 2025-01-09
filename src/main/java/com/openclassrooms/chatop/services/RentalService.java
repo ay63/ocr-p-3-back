@@ -1,8 +1,8 @@
 package com.openclassrooms.chatop.services;
 
-import com.openclassrooms.chatop.dto.mapper.implementation.rental.RentalResponseDtoMapperImpl;
+import com.openclassrooms.chatop.mapper.implementation.rental.RentalResponseDtoMapperImpl;
 import com.openclassrooms.chatop.dto.rental.RentalDto;
-import com.openclassrooms.chatop.dto.mapper.implementation.rental.RentalDtoMapperImpl;
+import com.openclassrooms.chatop.mapper.implementation.rental.RentalDtoMapperImpl;
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalUpdateDto;
 import com.openclassrooms.chatop.entities.Rental;
@@ -57,7 +57,7 @@ public class RentalService {
      *
      * @param rental Rental
      */
-    public void save(Rental rental) {
+    public void saveRental(Rental rental) {
         rentalRepository.save(rental);
     }
 
@@ -86,6 +86,7 @@ public class RentalService {
      *
      * @param rental          Rental
      * @param rentalUpdateDTO RentalUpdateDto
+     *
      */
     public void updateRental(Rental rental, RentalUpdateDto rentalUpdateDTO) {
         rental.setUpdatedAt(Instant.now());
@@ -93,10 +94,16 @@ public class RentalService {
         rental.setPrice(rentalUpdateDTO.getPrice());
         rental.setDescription(rentalUpdateDTO.getDescription());
         rental.setName(rentalUpdateDTO.getName());
-        this.rentalRepository.save(rental);
     }
 
 
+    /**
+     * Create rental object and upload file to S3 bucket
+     * @param user User
+     * @param rentalDto RentalDto
+     * @return Rental
+     * @throws Exception
+     */
     public Rental createRentalWithFileUpload(User user, RentalDto rentalDto) throws Exception {
         String fileUrl = fileService.uploadFile(
                 rentalDto.getPicture().getInputStream(),

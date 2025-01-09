@@ -14,6 +14,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,16 +39,14 @@ public class RentalController {
     public ResponseEntity<Map<String, String>> createRental(@Valid @ModelAttribute RentalDto rentalDTO, Authentication authentication) throws Exception {
 
         User user = this.userService.findUserByEmail(authentication.getName());
-
         if (user == null) throw new UnauthorizedException();
 
         if (rentalDTO.getPicture().isEmpty()) throw new BadRequestException();
 
         Rental rental = this.rentalService.createRentalWithFileUpload(user, rentalDTO);
-
         if (rental == null) throw new Exception("Rental not created");
 
-        rentalService.save(rental);
+        rentalService.saveRental(rental);
 
         return ResponseEntity.ok().body(Map.of("message", "Rental created !"));
     }
@@ -72,11 +71,16 @@ public class RentalController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Map<String, String>> updateRental(@PathVariable("id") int id, @Valid @ModelAttribute RentalUpdateDto rentalUpdateDTO) {
+    public ResponseEntity<Map<String, String>> updateRental(
+            @PathVariable("id") int id,
+            @Valid @ModelAttribute RentalUpdateDto rentalUpdateDTO
+    ) {
         Rental rental = this.rentalService.findRentalById(id);
 
         if (rental == null) throw new NotFoundException();
+
         this.rentalService.updateRental(rental, rentalUpdateDTO);
+        this.rentalService.saveRental(rental);
 
         return ResponseEntity.ok().body(Map.of("message", "Rental updated !"));
     }

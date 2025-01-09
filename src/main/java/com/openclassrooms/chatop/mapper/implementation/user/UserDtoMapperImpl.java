@@ -1,13 +1,13 @@
-package com.openclassrooms.chatop.dto.mapper.implementation.user;
+package com.openclassrooms.chatop.mapper.implementation.user;
 
 import com.openclassrooms.chatop.dto.user.UserDto;
-import com.openclassrooms.chatop.dto.mapper.implementation.DTOMapper;
+import com.openclassrooms.chatop.mapper.implementation.DtoMapper;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.services.DateService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDtoMapperImpl implements DTOMapper<User, UserDto> {
+public class UserDtoMapperImpl implements DtoMapper<User, UserDto> {
 
     private final DateService dateService;
 

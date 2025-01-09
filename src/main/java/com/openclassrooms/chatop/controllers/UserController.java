@@ -25,7 +25,7 @@ public class UserController {
         User user = this.userService.findUserById(id);
         if(user == null) throw new NotFoundException();
 
-        UserDto userDto = this.userService.userToUserDto(user);
+        UserDto userDto = this.userService.userObjectToUserDto(user);
         return ResponseEntity.ok(userDto);
     }
 }
