@@ -8,8 +8,6 @@
 - `Spring Security`: For authentication and authorization.
 - `Swagger/OpenAPI`: For API documentation.
 
----
-
 # General Notes
 ## Key Features:
 - `Separation of Concerns`: Each layer is dedicated to a specific responsibility, making the code easier to understand and maintain.
@@ -35,12 +33,9 @@ mvn javadoc:javadoc
 https://github.com/OpenClassrooms-Student-Center/Developpez-le-back-end-en-utilisant-Java-et-Spring.git
 ```
 
----
-
 # Project Package Structure
 
-## com.openclassrooms.chatop.configuration
-
+## com.openclassrooms.chatop.configurations
 This package contains classes responsible for the application’s configuration.
 
 - `OpenApiConfig`: Configures the OpenAPI/Swagger documentation for the project.
@@ -48,7 +43,6 @@ This package contains classes responsible for the application’s configuration.
 - `SpringSecurityConfig`: Manages the security configuration, including authentication and authorization mechanisms.
 
 ## com.openclassrooms.chatop.controllers
-
 This package holds the REST controllers that manage HTTP requests and responses.
 
 - `AuthController`: Manages authentication and authorization endpoints.
@@ -60,11 +54,10 @@ This package holds the REST controllers that manage HTTP requests and responses.
 - `UserController`: Handles user-related operations, such as registration and profile management.
 
 ## com.openclassrooms.chatop.dto
-
 This package contains data transfer objects (DTOs) used for communication between the application and the client.
 
 ### Sub-packages:
-#### ental:
+#### rental:
 - `RentalDto`: Represents a rental data structure used in requests and responses.
 - `RentalDtoAbstract`: Abstract base class for rental-related DTOs.
 - `RentalResponseDto`: Used for rental-related responses.
@@ -75,8 +68,10 @@ This package contains data transfer objects (DTOs) used for communication betwee
 - `UserLoginDto`: Used for login-related operations.
 - `UserRegisterDto`: Used for user registration operations.
 
-## com.openclassrooms.chatop.mapper.implementation
+## com.openclassrooms.chatop.mappers
+- `DTOMapper`: Acts as a central interface for all mapper implementations.
 
+## com.openclassrooms.chatop.mappers.implementations
 This package contains mapper implementations for converting between entities and DTOs.
 
 ### Sub-packages:
@@ -89,10 +84,8 @@ This package contains mapper implementations for converting between entities and
 - `UserDtoMapperImpl`: Maps User entities to UserDto.
 - `UserLoginDtoMapperImpl`: Maps login requests to user entities.
 - `UserRegisterDtoMapperImpl`: Maps user registration requests to user entities.
-- `DTOMapper`: Acts as a central interface for all mapper implementations.
 
 ## com.openclassrooms.chatop.entities
-
 This package contains the core JPA entity classes that represent the database tables.
 
 - `Message`: Represents the message entity in the database.
@@ -100,7 +93,6 @@ This package contains the core JPA entity classes that represent the database ta
 - `User`: Represents the user entity in the database.
 
 ## com.openclassrooms.chatop.repositories
-
 This package contains the repository interfaces for database operations.
 
 - `MessageRepository`: Repository for managing Message entities.
@@ -108,7 +100,6 @@ This package contains the repository interfaces for database operations.
 - `UserRepository`: Repository for managing User entities.
 
 ## com.openclassrooms.chatop.services
-
 This package contains the service classes that encapsulate the business logic of the application.
 
 - `DateService`: Provides date and time-related utilities.

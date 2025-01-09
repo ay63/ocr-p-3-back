@@ -36,7 +36,10 @@ public class RentalController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<Map<String, String>> createRental(@Valid @ModelAttribute RentalDto rentalDTO, Authentication authentication) throws Exception {
+    public ResponseEntity<Map<String, String>> createRental(
+            @Valid @ModelAttribute RentalDto rentalDTO,
+            Authentication authentication
+    ) throws Exception {
 
         User user = this.userService.findUserByEmail(authentication.getName());
         if (user == null) throw new UnauthorizedException();

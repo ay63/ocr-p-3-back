@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.mapper.implementation;
+package com.openclassrooms.chatop.mappers.implementations;
 
 public interface DtoMapper<E, D> {
 

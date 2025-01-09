@@ -1,6 +1,6 @@
-package com.openclassrooms.chatop.mapper.implementation.message;
+package com.openclassrooms.chatop.mappers.implementations.message;
 
-import com.openclassrooms.chatop.mapper.implementation.DtoMapper;
+import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
 import com.openclassrooms.chatop.dto.message.MessageDto;
 import com.openclassrooms.chatop.entities.Message;
 import com.openclassrooms.chatop.entities.Rental;

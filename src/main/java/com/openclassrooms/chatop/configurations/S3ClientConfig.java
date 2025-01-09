@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.configuration;
+package com.openclassrooms.chatop.configurations;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

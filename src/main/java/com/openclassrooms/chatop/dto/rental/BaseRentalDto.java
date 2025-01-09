@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.dto.rental;
 
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
@@ -9,9 +9,8 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-public class RentalUpdateDto {
+abstract class BaseRentalDto {
 
-    @NotBlank
     @NotNull
     private String name;
 
@@ -23,8 +22,18 @@ public class RentalUpdateDto {
     @Positive
     private BigDecimal price;
 
-    @NotBlank
     @NotNull
     private String description;
 
+    @JsonProperty("owner_id")
+    private Integer ownerId;
+
+    @JsonProperty("created_at")
+    private String createdAt;
+
+    @JsonProperty("updated_at")
+    private String updatedAt;
+
 }
+
+

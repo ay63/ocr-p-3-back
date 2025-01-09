@@ -1,8 +1,8 @@
 package com.openclassrooms.chatop.services;
 
-import com.openclassrooms.chatop.mapper.implementation.rental.RentalResponseDtoMapperImpl;
+import com.openclassrooms.chatop.mappers.implementations.rental.RentalResponseDtoMapperImpl;
 import com.openclassrooms.chatop.dto.rental.RentalDto;
-import com.openclassrooms.chatop.mapper.implementation.rental.RentalDtoMapperImpl;
+import com.openclassrooms.chatop.mappers.implementations.rental.RentalDtoMapperImpl;
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalUpdateDto;
 import com.openclassrooms.chatop.entities.Rental;

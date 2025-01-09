@@ -1,7 +1,7 @@
 package com.openclassrooms.chatop.services;
 
 
-import com.openclassrooms.chatop.mapper.implementation.message.MessageDtoMapperImpl;
+import com.openclassrooms.chatop.mappers.implementations.message.MessageDtoMapperImpl;
 import com.openclassrooms.chatop.dto.message.MessageDto;
 import com.openclassrooms.chatop.entities.Message;
 import com.openclassrooms.chatop.repositories.MessageRepository;
@@ -28,7 +28,6 @@ public class MessageService {
     public void saveMessage(Message message) {
         this.messageRepository.save(message);
     }
-
 
     /**
      * Build Message object from MessageDto

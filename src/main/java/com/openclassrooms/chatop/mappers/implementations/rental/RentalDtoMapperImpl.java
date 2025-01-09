@@ -1,7 +1,7 @@
-package com.openclassrooms.chatop.mapper.implementation.rental;
+package com.openclassrooms.chatop.mappers.implementations.rental;
 
 import com.openclassrooms.chatop.dto.rental.RentalDto;
-import com.openclassrooms.chatop.mapper.implementation.DtoMapper;
+import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.repositories.UserRepository;
@@ -24,10 +24,6 @@ public class RentalDtoMapperImpl implements DtoMapper<Rental, RentalDto> {
 
     @Override
     public Rental toEntity(RentalDto dto) {
-
-        if (dto == null) {
-            throw new IllegalArgumentException("DTO cannot be null");
-        }
 
         User user = this.userRepository.findById(dto.getOwnerId())
                 .orElseThrow(() -> new EntityNotFoundException(String.format("User with ID %d not found", dto.getOwnerId())));

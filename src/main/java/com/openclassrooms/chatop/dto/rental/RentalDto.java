@@ -1,17 +1,12 @@
 package com.openclassrooms.chatop.dto.rental;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-public class RentalDto extends RentalDtoAbstract {
+@Getter
+@Setter
+public class RentalDto extends BaseRentalDto {
 
     private MultipartFile picture;
-
-    public MultipartFile getPicture() {
-        return picture;
-    }
-
-    public void setPicture(MultipartFile picture) {
-        this.picture = picture;
-    }
-
 }

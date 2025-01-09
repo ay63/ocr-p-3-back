@@ -1,7 +1,7 @@
-package com.openclassrooms.chatop.mapper.implementation.user;
+package com.openclassrooms.chatop.mappers.implementations.user;
 
 import com.openclassrooms.chatop.dto.user.UserDto;
-import com.openclassrooms.chatop.mapper.implementation.DtoMapper;
+import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.services.DateService;
 import org.springframework.stereotype.Component;

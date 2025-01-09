@@ -1,12 +1,12 @@
 package com.openclassrooms.chatop.services;
 
-import com.openclassrooms.chatop.mapper.implementation.user.UserLoginDtoMapperImpl;
 import com.openclassrooms.chatop.dto.user.UserDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
-import com.openclassrooms.chatop.mapper.implementation.user.UserDtoMapperImpl;
-import com.openclassrooms.chatop.mapper.implementation.user.UserRegisterDtoMapperImpl;
 import com.openclassrooms.chatop.entities.User;
+import com.openclassrooms.chatop.mappers.implementations.user.UserDtoMapperImpl;
+import com.openclassrooms.chatop.mappers.implementations.user.UserLoginDtoMapperImpl;
+import com.openclassrooms.chatop.mappers.implementations.user.UserRegisterDtoMapperImpl;
 import com.openclassrooms.chatop.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -37,12 +37,10 @@ public class UserService {
     }
 
     public User findUserByEmail(String email) {
-
         return this.userRepository.findByEmail(email);
     }
 
     public User findUserById(int id) {
-
         return this.userRepository.findById(id).orElse(null);
     }
 

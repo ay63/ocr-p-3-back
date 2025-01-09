@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.configuration;
+package com.openclassrooms.chatop.configurations;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
