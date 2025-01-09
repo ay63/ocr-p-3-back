@@ -20,7 +20,6 @@ public class UserDtoMapperImpl implements DtoMapper<User, UserDto> {
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword());
         user.setCreatedAt(dateService.formatStringDateToInstant(dto.getCreatedAt()));
         user.setUpdatedAt(dateService.formatStringDateToInstant(dto.getUpdatedAt()));
         return user;
@@ -32,7 +31,6 @@ public class UserDtoMapperImpl implements DtoMapper<User, UserDto> {
         dto.setId(user.getId());
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
-        dto.setPassword(user.getPassword());
         dto.setCreatedAt(dateService.formatInstantToDateString(user.getCreatedAt()));
         dto.setUpdatedAt(dateService.formatInstantToDateString(user.getUpdatedAt()));
         return dto;

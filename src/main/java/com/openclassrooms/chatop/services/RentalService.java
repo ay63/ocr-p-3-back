@@ -32,41 +32,18 @@ public class RentalService {
         this.fileService = fileService;
     }
 
-    /**
-     * Converts a RentalDto to a Rental entity.
-     *
-     * @param rentalDTO RentalDto
-     * @return Rental
-     */
     public Rental rentalDtoToRental(RentalDto rentalDTO) {
         return rentalDTOMapperImpl.toEntity(rentalDTO);
     }
 
-    /**
-     * Converts a Rental entity to a RentalResponseDto.
-     *
-     * @param rental rental
-     * @return RentalResponseDto
-     */
     public RentalResponseDto rentalToRentalResponseDto(Rental rental) {
         return this.rentalResponseDtoMapper.toDto(rental);
     }
 
-    /**
-     * Saves the given Rental entity to the repository.
-     *
-     * @param rental Rental
-     */
     public void saveRental(Rental rental) {
         rentalRepository.save(rental);
     }
 
-    /**
-     * Finds a Rental entity by its ID.
-     *
-     * @param id int
-     * @return Rental
-     */
     public Rental findRentalById(int id) {
         return this.rentalRepository.findById(id).orElse(null);
     }
@@ -81,13 +58,6 @@ public class RentalService {
         return rentals.stream().map(this.rentalResponseDtoMapper::toDto).toList();
     }
 
-    /**
-     * Updates an existing Rental entity with data from RentalUpdateDto.
-     *
-     * @param rental          Rental
-     * @param rentalUpdateDTO RentalUpdateDto
-     *
-     */
     public void updateRental(Rental rental, RentalUpdateDto rentalUpdateDTO) {
         rental.setUpdatedAt(Instant.now());
         rental.setSurface(rentalUpdateDTO.getSurface());

@@ -1,6 +1,5 @@
 package com.openclassrooms.chatop.dto.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -19,12 +18,6 @@ public class UserDto {
     @NotBlank
     @Size(max = 255)
     private String email;
-
-    @NotBlank
-    @NotNull
-    @JsonIgnore
-    @Size(min = 8, max = 255)
-    private String password;
 
     @NotBlank
     @NotNull

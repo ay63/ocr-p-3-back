@@ -5,7 +5,7 @@ import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalUpdateDto;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
-import com.openclassrooms.chatop.exceptions.BadRequestException;
+import com.openclassrooms.chatop.exceptions.MissingPictureException;
 import com.openclassrooms.chatop.exceptions.NotFoundException;
 import com.openclassrooms.chatop.exceptions.UnauthorizedException;
 import com.openclassrooms.chatop.services.RentalService;
@@ -44,7 +44,7 @@ public class RentalController {
         User user = this.userService.findUserByEmail(authentication.getName());
         if (user == null) throw new UnauthorizedException();
 
-        if (rentalDTO.getPicture().isEmpty()) throw new BadRequestException();
+        if (rentalDTO.getPicture().isEmpty()) throw new MissingPictureException();
 
         Rental rental = this.rentalService.createRentalWithFileUpload(user, rentalDTO);
         if (rental == null) throw new Exception("Rental not created");
