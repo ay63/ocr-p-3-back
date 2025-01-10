@@ -31,7 +31,7 @@ public class JwtService {
                 .build();
 
         JwtEncoderParameters jwtEncoderParameters = JwtEncoderParameters.from(
-                JwsHeader.with(SignatureAlgorithm.RS256).build(),
+                JwsHeader.with(SignatureAlgorithm.RS512).build(),
                 claims
         );
 
