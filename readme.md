@@ -14,6 +14,13 @@ git clone https://github.com/ay63/ocr-p-3-back.git
 mvn javadoc:javadoc
 ```
 
+## RSA Keys
+Generate public and private key 
+```
+openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+openssl rsa -pubout -in private_key.pem -out public_key.pem
+```
+
 ## Postman collection
 For Postman import the collection
 
@@ -60,9 +67,6 @@ This package holds the REST controllers that manage HTTP requests and responses.
 
 ## com.openclassrooms.chatop.dto
 This package contains data transfer objects (DTOs) used for communication between the application and the client.
-
-## com.openclassrooms.chatop.mappers
-Acts as a central interface for all mapper implementations.
 
 ## com.openclassrooms.chatop.mappers.implementations
 This package contains mapper implementations for converting between entities and DTOs.
