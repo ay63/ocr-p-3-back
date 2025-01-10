@@ -21,7 +21,7 @@ public class UserResponseDto {
 
     @NotBlank
     @NotNull
-    @Size(min = 4, max = 255)
+    @Size(min = 2, max = 255)
     private String name;
 
     @NotNull

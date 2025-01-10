@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.dto.user;
 
-import com.openclassrooms.chatop.entities.Timestampable;
+import com.openclassrooms.chatop.entities.interfaces.Timestampable;
 import com.openclassrooms.chatop.constraints.password.ValidPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -27,7 +27,6 @@ public class UserRegisterDto implements Timestampable {
     private String name;
 
     @ValidPassword
-    @NotNull
     @Size(max = 255)
     private String password;
 

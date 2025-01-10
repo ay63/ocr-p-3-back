@@ -2,6 +2,7 @@ package com.openclassrooms.chatop.services;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+
 import com.openclassrooms.chatop.entities.User;
 import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;

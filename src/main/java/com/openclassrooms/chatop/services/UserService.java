@@ -4,7 +4,7 @@ import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
 import com.openclassrooms.chatop.entities.User;
-import com.openclassrooms.chatop.mappers.implementations.user.UserDtoMapperImpl;
+import com.openclassrooms.chatop.mappers.implementations.user.UserResponseDtoMapperImpl;
 import com.openclassrooms.chatop.mappers.implementations.user.UserLoginDtoMapperImpl;
 import com.openclassrooms.chatop.mappers.implementations.user.UserRegisterDtoMapperImpl;
 import com.openclassrooms.chatop.repositories.UserRepository;
@@ -16,13 +16,13 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserRegisterDtoMapperImpl userRegisterMapperImpl;
     private final PasswordService passwordService;
-    private final UserDtoMapperImpl userDtoMapperImpl;
+    private final UserResponseDtoMapperImpl userDtoMapperImpl;
     private final UserLoginDtoMapperImpl userLoginDtoMapperImpl;
 
     UserService(UserRepository userRepository,
                 UserRegisterDtoMapperImpl userRegisterMapperImpl,
                 PasswordService passwordService,
-                UserDtoMapperImpl userDtoMapperImpl,
+                UserResponseDtoMapperImpl userDtoMapperImpl,
                 UserLoginDtoMapperImpl userLoginDtoMapperImpl
     ) {
         this.userRepository = userRepository;

@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.entities;
 
+import com.openclassrooms.chatop.entities.interfaces.Timestampable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -11,7 +12,7 @@ import java.time.Instant;
 @Setter
 @Entity
 @Table(name = "messages")
-public class Message implements Timestampable{
+public class Message implements Timestampable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,12 +20,12 @@ public class Message implements Timestampable{
     private Integer id;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "rental_id")
     private Rental rental;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private User user;
 

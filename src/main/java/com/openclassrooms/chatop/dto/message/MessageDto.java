@@ -1,7 +1,7 @@
 package com.openclassrooms.chatop.dto.message;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.openclassrooms.chatop.entities.Timestampable;
+import com.openclassrooms.chatop.entities.interfaces.Timestampable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

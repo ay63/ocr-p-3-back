@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.controllers;
 
+import com.openclassrooms.chatop.dto.token.tokenResponseDto;
 import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
@@ -14,8 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController()
 @RequestMapping("auth")
 public class AuthController {
@@ -29,24 +28,23 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String, String>> register(@Valid @RequestBody UserRegisterDto userRegisterDTO) {
+    public ResponseEntity<tokenResponseDto> register(@Valid @RequestBody UserRegisterDto userRegisterDTO) {
         boolean userExist = userService.isUserExist(userRegisterDTO.getEmail());
         if (userExist) throw new BadRequestException();
 
         User newUser = userService.userRegisterDtoToUser(userRegisterDTO);
         userService.saveUser(newUser);
 
-        return ResponseEntity.ok().body(Map.of("token", jwtService.generateToken(newUser)));
+        return ResponseEntity.ok().body(new tokenResponseDto(jwtService.generateToken(newUser)));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody UserLoginDto userLoginDTO) {
+    public ResponseEntity<tokenResponseDto> login(@Valid @RequestBody UserLoginDto userLoginDTO) {
         if (!userService.userHasValidCredentials(userLoginDTO)) throw new UnauthorizedException();
 
-        return ResponseEntity.ok().body(Map.of(
-                "token",
-                jwtService.generateToken(this.userService.userLoginDtoToUser(userLoginDTO))
-        ));
+        return ResponseEntity.ok().body(
+                new tokenResponseDto(jwtService.generateToken(this.userService.userLoginDtoToUser(userLoginDTO))
+                ));
     }
 
     @GetMapping("/me")

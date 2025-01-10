@@ -1,6 +1,7 @@
 package com.openclassrooms.chatop.entities;
 
 import com.openclassrooms.chatop.constraints.password.ValidPassword;
+import com.openclassrooms.chatop.entities.interfaces.Timestampable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -26,7 +27,7 @@ public class User implements Timestampable {
     private String email;
 
     @NotNull
-    @Size(min = 4, max = 255)
+    @Size(min = 2, max = 255)
     @Column(name = "name")
     private String name;
 

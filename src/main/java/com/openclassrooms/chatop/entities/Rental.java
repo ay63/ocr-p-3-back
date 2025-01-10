@@ -1,12 +1,13 @@
 package com.openclassrooms.chatop.entities;
 
-import com.openclassrooms.chatop.constraints.multipart.NotEmptyMultipartFile;
+import com.openclassrooms.chatop.entities.interfaces.Timestampable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 
@@ -36,7 +37,7 @@ public class Rental implements Timestampable {
     @Column(name = "price", precision = 6)
     private BigDecimal price;
 
-    @NotEmptyMultipartFile
+    @NotNull
     @Size(max = 255)
     @Column(name = "picture")
     private String picture;
@@ -47,10 +48,13 @@ public class Rental implements Timestampable {
     private String description;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            optional = false,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 

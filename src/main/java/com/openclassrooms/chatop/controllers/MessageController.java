@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.controllers;
 
+import com.openclassrooms.chatop.dto.generic.GenericResponseDto;
 import com.openclassrooms.chatop.dto.message.MessageDto;
 import com.openclassrooms.chatop.entities.Message;
 import com.openclassrooms.chatop.exceptions.BadRequestException;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Map;
 
 @RestController()
 @RequestMapping("messages")
@@ -23,12 +23,12 @@ public class MessageController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<Map<String, String>> postMessage(@Valid @RequestBody MessageDto messageDto) {
+    public ResponseEntity<GenericResponseDto> postMessage(@Valid @RequestBody MessageDto messageDto) {
         Message message = this.messageService.messageDtoToMessage(messageDto);
         if (message == null)  throw new BadRequestException();
 
         this.messageService.saveMessage(message);
-        return ResponseEntity.ok().body(Map.of("message", "Message send with success"));
+        return ResponseEntity.ok().body(new GenericResponseDto("Message send with success"));
     }
 
 }

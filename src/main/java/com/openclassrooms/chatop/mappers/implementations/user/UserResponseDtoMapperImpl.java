@@ -7,11 +7,11 @@ import com.openclassrooms.chatop.services.DateService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDtoMapperImpl implements DtoMapper<User, UserResponseDto> {
+public class UserResponseDtoMapperImpl implements DtoMapper<User, UserResponseDto> {
 
     private final DateService dateService;
 
-    UserDtoMapperImpl(DateService dateService) {
+    UserResponseDtoMapperImpl(DateService dateService) {
         this.dateService = dateService;
     }
 

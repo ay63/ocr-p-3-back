@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.entities;
+package com.openclassrooms.chatop.entities.interfaces;
 
 import java.time.Instant;
 

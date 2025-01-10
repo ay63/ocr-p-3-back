@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.controllers;
 
+import com.openclassrooms.chatop.dto.generic.GenericResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalCreateDto;
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalUpdateDto;
@@ -33,7 +34,7 @@ public class RentalController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<Map<String, String>> createRental(
+    public ResponseEntity<GenericResponseDto> createRental(
             @Valid @ModelAttribute RentalCreateDto rentalDTO,
             Authentication authentication
     ) throws Exception {
@@ -46,7 +47,7 @@ public class RentalController {
 
         rentalService.saveRental(rental);
 
-        return ResponseEntity.ok().body(Map.of("message", "Rental created !"));
+        return ResponseEntity.ok().body(new GenericResponseDto("Rental created !"));
     }
 
     @GetMapping(path = "/{id}")
@@ -63,7 +64,7 @@ public class RentalController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Map<String, String>> updateRental(
+    public ResponseEntity<GenericResponseDto> updateRental(
             @PathVariable("id") int id,
             @Valid @ModelAttribute RentalUpdateDto rentalUpdateDTO
     ) {
@@ -72,7 +73,7 @@ public class RentalController {
 
         this.rentalService.updateAndSaveRental(rental, rentalUpdateDTO);
 
-        return ResponseEntity.ok().body(Map.of("message", "Rental updated !"));
+        return ResponseEntity.ok().body(new GenericResponseDto("Rental updated !"));
     }
 
 }
