@@ -11,7 +11,7 @@ git clone https://github.com/ay63/ocr-p-3-back.git
 ```
 ## Build documentation
 ```
-mvn javadoc:javadoc
+./mvnw javadoc:javadoc
 ```
 
 ## RSA Keys
