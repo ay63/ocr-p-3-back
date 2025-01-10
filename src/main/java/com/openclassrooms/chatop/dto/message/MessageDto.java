@@ -1,12 +1,16 @@
-package com.openclassrooms.chatop.dto.user;
+package com.openclassrooms.chatop.dto.message;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.openclassrooms.chatop.entities.interfaces.Timestampable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.time.Instant;
 
-public class MessageDto {
+@Getter
+@Setter
+public class MessageDto implements Timestampable {
 
     @JsonProperty("rental_id")
     @NotNull
@@ -24,27 +28,7 @@ public class MessageDto {
 
     private Instant updatedAt;
 
-
-    public Integer getRentalId() {
-        return rentalId;
-    }
-
-    public void setRentalId(Integer rentalId) {
-        this.rentalId = rentalId;
-    }
-
-    public Integer getUserId() { return userId;}
-
-    public void setUserId(Integer userId) { this.userId = userId; }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
+    @Override
     public Instant getCreatedAt() {
         if (this.createdAt == null) {
             return Instant.now();
@@ -52,10 +36,8 @@ public class MessageDto {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
 
+    @Override
     public Instant getUpdatedAt() {
         if (this.updatedAt == null) {
             return Instant.now();
@@ -63,7 +45,4 @@ public class MessageDto {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }

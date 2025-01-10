@@ -1,17 +1,18 @@
-package com.openclassrooms.chatop.dto.mapper.implementation.message;
+package com.openclassrooms.chatop.mappers.implementations.message;
 
-import com.openclassrooms.chatop.dto.mapper.implementation.DTOMapper;
-import com.openclassrooms.chatop.dto.user.MessageDto;
+import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
+import com.openclassrooms.chatop.dto.message.MessageDto;
 import com.openclassrooms.chatop.entities.Message;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.repositories.RentalRepository;
 import com.openclassrooms.chatop.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class MessageDtoMapperImpl implements DTOMapper<Message, MessageDto> {
+public class MessageDtoMapperImpl implements DtoMapper<Message, MessageDto> {
 
     private final UserRepository userRepository;
     private final RentalRepository rentalRepository;
@@ -24,12 +25,13 @@ public class MessageDtoMapperImpl implements DTOMapper<Message, MessageDto> {
     @Override
     public Message toEntity(MessageDto dto) {
 
-        User user = userRepository.findById(dto.getUserId()).orElse(null);
-        Rental rental = rentalRepository.findById(dto.getRentalId()).orElse(null);
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(
+                () -> new EntityNotFoundException(String.format("User with ID %d not found", dto.getUserId()))
+        );
 
-        if (user == null || rental == null) {
-            return null;
-        }
+        Rental rental = rentalRepository.findById(dto.getRentalId()).orElseThrow(
+                () -> new EntityNotFoundException(String.format("Rental with ID %d not found", dto.getRentalId()))
+        );
 
         Message message = new Message();
         message.setMessage(dto.getMessage());

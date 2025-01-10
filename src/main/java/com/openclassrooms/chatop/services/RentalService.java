@@ -1,8 +1,8 @@
 package com.openclassrooms.chatop.services;
 
-import com.openclassrooms.chatop.dto.mapper.implementation.rental.RentalResponseDtoMapperImpl;
-import com.openclassrooms.chatop.dto.rental.RentalDto;
-import com.openclassrooms.chatop.dto.mapper.implementation.rental.RentalDtoMapperImpl;
+import com.openclassrooms.chatop.mappers.implementations.rental.RentalResponseDtoMapperImpl;
+import com.openclassrooms.chatop.dto.rental.RentalCreateDto;
+import com.openclassrooms.chatop.mappers.implementations.rental.RentalDtoMapperImpl;
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalUpdateDto;
 import com.openclassrooms.chatop.entities.Rental;
@@ -11,7 +11,9 @@ import com.openclassrooms.chatop.repositories.RentalRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RentalService {
@@ -32,41 +34,18 @@ public class RentalService {
         this.fileService = fileService;
     }
 
-    /**
-     * Converts a RentalDto to a Rental entity.
-     *
-     * @param rentalDTO RentalDto
-     * @return Rental
-     */
-    public Rental rentalDtoToRental(RentalDto rentalDTO) {
+    public Rental rentalDtoToRental(RentalCreateDto rentalDTO) {
         return rentalDTOMapperImpl.toEntity(rentalDTO);
     }
 
-    /**
-     * Converts a Rental entity to a RentalResponseDto.
-     *
-     * @param rental rental
-     * @return RentalResponseDto
-     */
     public RentalResponseDto rentalToRentalResponseDto(Rental rental) {
         return this.rentalResponseDtoMapper.toDto(rental);
     }
 
-    /**
-     * Saves the given Rental entity to the repository.
-     *
-     * @param rental Rental
-     */
-    public void save(Rental rental) {
+    public void saveRental(Rental rental) {
         rentalRepository.save(rental);
     }
 
-    /**
-     * Finds a Rental entity by its ID.
-     *
-     * @param id int
-     * @return Rental
-     */
     public Rental findRentalById(int id) {
         return this.rentalRepository.findById(id).orElse(null);
     }
@@ -81,23 +60,23 @@ public class RentalService {
         return rentals.stream().map(this.rentalResponseDtoMapper::toDto).toList();
     }
 
-    /**
-     * Updates an existing Rental entity with data from RentalUpdateDto.
-     *
-     * @param rental          Rental
-     * @param rentalUpdateDTO RentalUpdateDto
-     */
-    public void updateRental(Rental rental, RentalUpdateDto rentalUpdateDTO) {
+    public void updateAndSaveRental(Rental rental, RentalUpdateDto rentalUpdateDTO) {
         rental.setUpdatedAt(Instant.now());
         rental.setSurface(rentalUpdateDTO.getSurface());
         rental.setPrice(rentalUpdateDTO.getPrice());
         rental.setDescription(rentalUpdateDTO.getDescription());
         rental.setName(rentalUpdateDTO.getName());
-        this.rentalRepository.save(rental);
+        this.saveRental(rental);
     }
 
-
-    public Rental createRentalWithFileUpload(User user, RentalDto rentalDto) throws Exception {
+    /**
+     * Create rental object and upload file to S3 bucket
+     * @param user User
+     * @param rentalDto RentalDto
+     * @return Rental
+     * @throws Exception
+     */
+    public Rental createRentalWithFileUpload(User user, RentalCreateDto rentalDto) throws Exception {
         String fileUrl = fileService.uploadFile(
                 rentalDto.getPicture().getInputStream(),
                 rentalDto.getPicture().getOriginalFilename()
@@ -108,6 +87,13 @@ public class RentalService {
         rental.setPicture(fileUrl);
 
         return rental;
+    }
+
+    public Map<String, List<RentalResponseDto>> getAllRentalsResponse() {
+        List<RentalResponseDto> rentalResponseDtos = this.findAllRentals();
+        Map<String, List<RentalResponseDto>> response = new HashMap<>();
+        response.put("rentals", rentalResponseDtos);
+        return response;
     }
 
 }

@@ -27,7 +27,7 @@ public class FileService {
 
     /**
      * Upload file into S3 bucket
-     *
+     * Build key with uuid to make sure the file is uniq in bucket
      * @param inputStream InputStream
      * @param fileName    String
      * @return url S3

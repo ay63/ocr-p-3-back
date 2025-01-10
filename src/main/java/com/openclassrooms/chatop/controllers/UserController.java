@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.controllers;
 
-import com.openclassrooms.chatop.dto.user.UserDto;
+import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.exceptions.NotFoundException;
 import com.openclassrooms.chatop.services.UserService;
@@ -21,11 +21,10 @@ public class UserController {
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<UserDto> getUser(@PathVariable("id") int id) {
+    public ResponseEntity<UserResponseDto> getUser(@PathVariable("id") int id) {
         User user = this.userService.findUserById(id);
-        if(user == null) throw new NotFoundException();
+        if (user == null) throw new NotFoundException();
 
-        UserDto userDto = this.userService.userToUserDto(user);
-        return ResponseEntity.ok(userDto);
+        return ResponseEntity.ok(this.userService.userToUserDto(user));
     }
 }

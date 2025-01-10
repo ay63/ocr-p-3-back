@@ -1,5 +1,4 @@
-package com.openclassrooms.chatop.configuration;
-
+package com.openclassrooms.chatop.configurations;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;

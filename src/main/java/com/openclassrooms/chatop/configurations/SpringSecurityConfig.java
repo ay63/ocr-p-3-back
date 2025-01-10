@@ -1,8 +1,9 @@
-package com.openclassrooms.chatop.configuration;
+package com.openclassrooms.chatop.configurations;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -38,9 +40,6 @@ public class SpringSecurityConfig {
 
     private static final String PRIVATE_KEY = "PRIVATE";
     private static final String PUBLIC_KEY = "PUBLIC";
-
-    private RSAPublicKey publicKey;
-    private RSAPrivateKey privateKey;
 
     private final static String[] publicEndPoints = {
             "/auth/login",
@@ -121,7 +120,7 @@ public class SpringSecurityConfig {
      * Sanitize the RSA key from header and footer
      *
      * @param key     String
-     * @param typeKey String must be PRIVATE or Public, you must respect the upper case format
+     * @param typeKey String must be PRIVATE or PUBLIC, you must respect the upper case format
      * @return String
      */
     private String getSanitizeRsaKey(String key, String typeKey) {
@@ -143,12 +142,12 @@ public class SpringSecurityConfig {
 
     @Bean
     public JwtDecoder jwtDecoder(RSAPublicKey publicKey) {
-        return NimbusJwtDecoder.withPublicKey(publicKey).build();
+        return NimbusJwtDecoder.withPublicKey(publicKey)
+                .signatureAlgorithm(SignatureAlgorithm.RS512).build();
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
