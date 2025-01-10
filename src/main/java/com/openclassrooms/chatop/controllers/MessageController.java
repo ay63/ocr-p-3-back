@@ -24,8 +24,7 @@ public class MessageController {
 
     @PostMapping(path = "")
     public ResponseEntity<Map<String, String>> postMessage(@Valid @RequestBody MessageDto messageDto) {
-        Message message = this.messageService.messageDtoToMessageObject(messageDto);
-
+        Message message = this.messageService.messageDtoToMessage(messageDto);
         if (message == null)  throw new BadRequestException();
 
         this.messageService.saveMessage(message);

@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UserDto {
+public class UserResponseDto {
 
     @NotNull
     @NotBlank

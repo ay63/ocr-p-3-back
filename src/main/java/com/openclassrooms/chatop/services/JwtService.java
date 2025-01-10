@@ -28,6 +28,7 @@ public class JwtService {
                 .expiresAt(now.plus(1, ChronoUnit.DAYS))
                 .subject(user.getEmail())
                 .build();
+
         JwtEncoderParameters jwtEncoderParameters = JwtEncoderParameters.from(
                 JwsHeader.with(SignatureAlgorithm.RS256).build(),
                 claims

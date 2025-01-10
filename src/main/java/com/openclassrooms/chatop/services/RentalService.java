@@ -1,7 +1,7 @@
 package com.openclassrooms.chatop.services;
 
 import com.openclassrooms.chatop.mappers.implementations.rental.RentalResponseDtoMapperImpl;
-import com.openclassrooms.chatop.dto.rental.RentalDto;
+import com.openclassrooms.chatop.dto.rental.RentalCreateDto;
 import com.openclassrooms.chatop.mappers.implementations.rental.RentalDtoMapperImpl;
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalUpdateDto;
@@ -11,7 +11,9 @@ import com.openclassrooms.chatop.repositories.RentalRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RentalService {
@@ -32,7 +34,7 @@ public class RentalService {
         this.fileService = fileService;
     }
 
-    public Rental rentalDtoToRental(RentalDto rentalDTO) {
+    public Rental rentalDtoToRental(RentalCreateDto rentalDTO) {
         return rentalDTOMapperImpl.toEntity(rentalDTO);
     }
 
@@ -58,14 +60,14 @@ public class RentalService {
         return rentals.stream().map(this.rentalResponseDtoMapper::toDto).toList();
     }
 
-    public void updateRental(Rental rental, RentalUpdateDto rentalUpdateDTO) {
+    public void updateAndSaveRental(Rental rental, RentalUpdateDto rentalUpdateDTO) {
         rental.setUpdatedAt(Instant.now());
         rental.setSurface(rentalUpdateDTO.getSurface());
         rental.setPrice(rentalUpdateDTO.getPrice());
         rental.setDescription(rentalUpdateDTO.getDescription());
         rental.setName(rentalUpdateDTO.getName());
+        this.saveRental(rental);
     }
-
 
     /**
      * Create rental object and upload file to S3 bucket
@@ -74,7 +76,7 @@ public class RentalService {
      * @return Rental
      * @throws Exception
      */
-    public Rental createRentalWithFileUpload(User user, RentalDto rentalDto) throws Exception {
+    public Rental createRentalWithFileUpload(User user, RentalCreateDto rentalDto) throws Exception {
         String fileUrl = fileService.uploadFile(
                 rentalDto.getPicture().getInputStream(),
                 rentalDto.getPicture().getOriginalFilename()
@@ -85,6 +87,13 @@ public class RentalService {
         rental.setPicture(fileUrl);
 
         return rental;
+    }
+
+    public Map<String, List<RentalResponseDto>> getAllRentalsResponse() {
+        List<RentalResponseDto> rentalResponseDtos = this.findAllRentals();
+        Map<String, List<RentalResponseDto>> response = new HashMap<>();
+        response.put("rentals", rentalResponseDtos);
+        return response;
     }
 
 }

@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.mappers.implementations.rental;
 
-import com.openclassrooms.chatop.dto.rental.RentalDto;
+import com.openclassrooms.chatop.dto.rental.RentalCreateDto;
 import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.time.Instant;
 
 @Component
-public class RentalDtoMapperImpl implements DtoMapper<Rental, RentalDto> {
+public class RentalDtoMapperImpl implements DtoMapper<Rental, RentalCreateDto> {
 
     private final UserRepository userRepository;
     private final DateService dateService;
@@ -23,17 +23,17 @@ public class RentalDtoMapperImpl implements DtoMapper<Rental, RentalDto> {
     }
 
     @Override
-    public Rental toEntity(RentalDto dto) {
+    public Rental toEntity(RentalCreateDto dto) {
 
         User user = this.userRepository.findById(dto.getOwnerId())
                 .orElseThrow(() -> new EntityNotFoundException(String.format("User with ID %d not found", dto.getOwnerId())));
 
         Instant now = Instant.now();
         Instant createdAt = (dto.getCreatedAt() != null)
-                ? dateService.formatStringDateToInstant(dto.getCreatedAt())
+                ? dateService.DateFormatStringToInstant(dto.getCreatedAt())
                 : now;
         Instant updatedAt = (dto.getUpdatedAt() != null)
-                ? dateService.formatStringDateToInstant(dto.getUpdatedAt())
+                ? dateService.DateFormatStringToInstant(dto.getUpdatedAt())
                 : now;
 
         Rental rental = new Rental();
@@ -49,11 +49,11 @@ public class RentalDtoMapperImpl implements DtoMapper<Rental, RentalDto> {
     }
 
     @Override
-    public RentalDto toDto(Rental rental) {
-        RentalDto dto = new RentalDto();
+    public RentalCreateDto toDto(Rental rental) {
+        RentalCreateDto dto = new RentalCreateDto();
         dto.setName(rental.getName());
-        dto.setCreatedAt(dateService.formatInstantToDateString(rental.getCreatedAt()));
-        dto.setUpdatedAt(dateService.formatInstantToDateString(rental.getUpdatedAt()));
+        dto.setCreatedAt(dateService.instantObjectToDateFormatString(rental.getCreatedAt()));
+        dto.setUpdatedAt(dateService.instantObjectToDateFormatString(rental.getUpdatedAt()));
         dto.setOwnerId(rental.getOwner().getId());
         dto.setDescription(rental.getDescription());
         dto.setPrice(rental.getPrice());

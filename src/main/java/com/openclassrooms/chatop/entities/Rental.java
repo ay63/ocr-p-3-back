@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.entities;
 
+import com.openclassrooms.chatop.validator.multipart.NotEmptyMultipartFile;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -35,8 +36,8 @@ public class Rental implements Timestampable {
     @Column(name = "price", precision = 6)
     private BigDecimal price;
 
+    @NotEmptyMultipartFile
     @Size(max = 255)
-    @NotNull
     @Column(name = "picture")
     private String picture;
 

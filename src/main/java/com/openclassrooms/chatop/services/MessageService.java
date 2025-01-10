@@ -24,7 +24,7 @@ public class MessageService {
         this.messageRepository.save(message);
     }
 
-    public Message messageDtoToMessageObject(MessageDto messageDto) {
+    public Message messageDtoToMessage(MessageDto messageDto) {
         return this.messageDtoMapperImpl.toEntity(messageDto);
     }
 

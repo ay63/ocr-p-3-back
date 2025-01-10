@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.controllers;
 
-import com.openclassrooms.chatop.dto.user.UserDto;
+import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
 import com.openclassrooms.chatop.entities.User;
@@ -31,7 +31,6 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@Valid @RequestBody UserRegisterDto userRegisterDTO) {
         boolean userExist = userService.isUserExist(userRegisterDTO.getEmail());
-
         if (userExist) throw new BadRequestException();
 
         User newUser = userService.userRegisterDtoToUser(userRegisterDTO);
@@ -44,20 +43,18 @@ public class AuthController {
     public ResponseEntity<Map<String, String>> login(@Valid @RequestBody UserLoginDto userLoginDTO) {
         if (!userService.userHasValidCredentials(userLoginDTO)) throw new UnauthorizedException();
 
-        User user = this.userService.userLoginDtoToUser(userLoginDTO);
-
-        return ResponseEntity.ok().body(Map.of("token", jwtService.generateToken(user)));
+        return ResponseEntity.ok().body(Map.of(
+                "token",
+                jwtService.generateToken(this.userService.userLoginDtoToUser(userLoginDTO))
+        ));
     }
 
     @GetMapping("/me")
-    public ResponseEntity<UserDto> me(Authentication authentication) {
+    public ResponseEntity<UserResponseDto> me(Authentication authentication) {
         User user = this.userService.findUserByEmail(authentication.getName());
-
         if (user == null) throw new NotFoundException();
 
-        UserDto userDTO = this.userService.userObjectToUserDto(user);
-
-        return ResponseEntity.ok().body(userDTO);
+        return ResponseEntity.ok().body(this.userService.userToUserDto(user));
     }
 
 }

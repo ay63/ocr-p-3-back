@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.services;
 
-import com.openclassrooms.chatop.dto.user.UserDto;
+import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
 import com.openclassrooms.chatop.entities.User;
@@ -57,7 +57,7 @@ public class UserService {
         return passwordService.checkPassword(userLoginDTO.getPassword(), user.getPassword());
     }
 
-    public UserDto userObjectToUserDto(User user) {
+    public UserResponseDto userToUserDto(User user) {
         return this.userDtoMapperImpl.toDto(user);
     }
 

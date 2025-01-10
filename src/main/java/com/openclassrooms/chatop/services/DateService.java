@@ -19,7 +19,7 @@ public class DateService {
      * @param date Instant
      * @return String ex: 2025/01/31
      */
-    public String formatInstantToDateString(Instant date) {
+    public String instantObjectToDateFormatString(Instant date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(PATTERN_FORMAT)
                 .withZone(ZoneId.systemDefault());
 
@@ -32,7 +32,7 @@ public class DateService {
      * @param date Instant
      * @return String ex: 2025/01/31
      */
-    public Instant formatStringDateToInstant(String date) {
+    public Instant DateFormatStringToInstant(String date) {
         return Instant.parse(date);
     }
 }
