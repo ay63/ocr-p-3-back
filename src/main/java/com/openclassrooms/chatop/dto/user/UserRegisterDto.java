@@ -1,7 +1,7 @@
 package com.openclassrooms.chatop.dto.user;
 
 import com.openclassrooms.chatop.entities.Timestampable;
-import com.openclassrooms.chatop.validators.password.ValidPassword;
+import com.openclassrooms.chatop.constraints.password.ValidPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

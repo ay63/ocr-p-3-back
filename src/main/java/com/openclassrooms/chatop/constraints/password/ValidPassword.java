@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.validators.password;
+package com.openclassrooms.chatop.constraints.password;
 
 import com.nimbusds.jose.Payload;
 import jakarta.validation.Constraint;

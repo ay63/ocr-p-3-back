@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.entities;
 
-import com.openclassrooms.chatop.validators.multipart.NotEmptyMultipartFile;
+import com.openclassrooms.chatop.constraints.multipart.NotEmptyMultipartFile;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;

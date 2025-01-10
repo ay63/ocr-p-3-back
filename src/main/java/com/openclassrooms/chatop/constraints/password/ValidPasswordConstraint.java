@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.validators.password;
+package com.openclassrooms.chatop.constraints.password;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.entities;
 
-import com.openclassrooms.chatop.validators.password.ValidPassword;
+import com.openclassrooms.chatop.constraints.password.ValidPassword;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;

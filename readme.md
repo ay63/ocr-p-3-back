@@ -76,5 +76,5 @@ This package contains the repository interfaces for database operations.
 ## com.openclassrooms.chatop.services
 This package contains the service classes that encapsulate the business logic of the application.
 
-## com.openclassrooms.chatop.validator
-This package contains the validator classes.
+## com.openclassrooms.chatop.constraints
+This package contains the constraints classes for entities and Dto.
