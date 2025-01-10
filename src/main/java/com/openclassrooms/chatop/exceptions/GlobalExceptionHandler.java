@@ -49,16 +49,4 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
-    /**
-     * Handles generic exceptions.
-     *
-     * @param exception Exception
-     * @return ResponseEntity with HTTP 500 errors
-     */
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, String>> handleGlobalException(Exception exception) {
-        Map<String, String> error = new HashMap<>();
-        error.put("error", exception.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
-    }
 }

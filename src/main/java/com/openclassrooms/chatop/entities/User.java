@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.entities;
 
+import com.openclassrooms.chatop.validators.password.ValidPassword;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -29,7 +30,8 @@ public class User implements Timestampable {
     @Column(name = "name")
     private String name;
 
-    @Size(min = 8, max = 255)
+    @ValidPassword
+    @Size(max = 255)
     @Column(name = "password")
     private String password;
 

@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.dto.rental;
 
-import com.openclassrooms.chatop.validator.multipart.NotEmptyMultipartFile;
+import com.openclassrooms.chatop.validators.multipart.NotEmptyMultipartFile;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;

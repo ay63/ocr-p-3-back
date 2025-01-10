@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.validator.multipart;
+package com.openclassrooms.chatop.validators.multipart;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
