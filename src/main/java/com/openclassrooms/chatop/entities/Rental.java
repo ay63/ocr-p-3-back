@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
@@ -35,7 +34,7 @@ public class Rental implements Timestampable {
     @NotNull
     @Positive
     @Column(name = "price", precision = 6)
-    private BigDecimal price;
+    private Double price;
 
     @NotNull
     @Size(max = 255)

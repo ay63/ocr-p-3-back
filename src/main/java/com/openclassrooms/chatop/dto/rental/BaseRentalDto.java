@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
-import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -20,7 +19,7 @@ abstract class BaseRentalDto {
 
     @NotNull
     @Positive
-    private BigDecimal price;
+    private Double price;
 
     @NotNull
     private String description;

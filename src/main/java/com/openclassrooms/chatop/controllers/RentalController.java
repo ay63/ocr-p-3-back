@@ -43,8 +43,6 @@ public class RentalController {
         if (user == null) throw new NotFoundException();
 
         Rental rental = this.rentalService.createRentalWithFileUpload(user, rentalDTO);
-        if (rental == null) throw new Exception("Rental not created");
-
         rentalService.saveRental(rental);
 
         return ResponseEntity.ok().body(new GenericResponseDto("Rental created !"));
