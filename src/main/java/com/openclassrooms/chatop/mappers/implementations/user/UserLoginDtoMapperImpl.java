@@ -11,7 +11,7 @@ public class UserLoginDtoMapperImpl implements DtoMapper<User, UserLoginDto> {
     @Override
     public User toEntity(UserLoginDto dto) {
         User user = new User();
-        user.setEmail(dto.getLogin());
+        user.setEmail(dto.getEmail());
         user.setPassword(dto.getPassword());
         return user;
     }
@@ -20,7 +20,7 @@ public class UserLoginDtoMapperImpl implements DtoMapper<User, UserLoginDto> {
     public UserLoginDto toDto(User user) {
         UserLoginDto dto = new UserLoginDto();
         dto.setPassword(user.getPassword());
-        dto.setLogin(user.getEmail());
+        dto.setEmail(user.getEmail());
         return dto;
     }
 }

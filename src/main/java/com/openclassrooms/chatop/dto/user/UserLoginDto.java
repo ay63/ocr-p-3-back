@@ -13,7 +13,7 @@ public class UserLoginDto {
     @NotBlank
     @NotNull
     @Size(max = 255)
-    private String login;
+    private String email;
 
     @NotBlank
     @NotNull

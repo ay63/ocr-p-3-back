@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
-import java.util.List;
 
 @Entity
 @Getter
@@ -45,7 +44,5 @@ public class User implements Timestampable {
     @Column(name = "updated_at")
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "owner")
-    private List<Rental> rentals;
 
 }

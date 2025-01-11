@@ -75,7 +75,7 @@ public class UserService {
     }
 
     public void userHasValidCredentials(UserLoginDto userLoginDTO) {
-        User user = this.userRepository.findByEmail(userLoginDTO.getLogin());
+        User user = this.userRepository.findByEmail(userLoginDTO.getEmail());
         if (user == null) {
             throw new NotFoundException();
         }
