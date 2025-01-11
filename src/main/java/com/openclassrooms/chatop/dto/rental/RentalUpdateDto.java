@@ -16,11 +16,11 @@ public class RentalUpdateDto {
 
     @NotNull
     @Positive
-    private Double surface;
+    private Integer surface;
 
     @NotNull
     @Positive
-    private Double price;
+    private Integer price;
 
     @NotBlank
     @NotNull

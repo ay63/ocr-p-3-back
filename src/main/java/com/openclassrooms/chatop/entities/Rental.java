@@ -28,13 +28,13 @@ public class Rental implements Timestampable {
 
     @NotNull
     @Positive
-    @Column(name = "surface", precision = 6)
-    private Double surface;
+    @Column(name = "surface")
+    private Integer surface;
 
     @NotNull
     @Positive
-    @Column(name = "price", precision = 6)
-    private Double price;
+    @Column(name = "price")
+    private Integer price;
 
     @NotNull
     @Size(max = 255)

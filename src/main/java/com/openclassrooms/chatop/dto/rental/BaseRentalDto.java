@@ -15,11 +15,11 @@ abstract class BaseRentalDto {
 
     @NotNull
     @Positive
-    private Double surface;
+    private Integer surface;
 
     @NotNull
     @Positive
-    private Double price;
+    private Integer price;
 
     @NotNull
     private String description;
