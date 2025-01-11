@@ -25,8 +25,6 @@ public class MessageController {
     @PostMapping(path = "")
     public ResponseEntity<GenericResponseDto> postMessage(@Valid @RequestBody MessageDto messageDto) {
         Message message = this.messageService.messageDtoToMessage(messageDto);
-        if (message == null)  throw new BadRequestException();
-
         this.messageService.saveMessage(message);
         return ResponseEntity.ok().body(new GenericResponseDto("Message send with success"));
     }

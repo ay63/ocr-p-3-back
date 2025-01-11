@@ -4,6 +4,8 @@ import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
 import com.openclassrooms.chatop.entities.User;
+import com.openclassrooms.chatop.exceptions.NotFoundException;
+import com.openclassrooms.chatop.exceptions.UnauthorizedException;
 import com.openclassrooms.chatop.mappers.implementations.user.UserResponseDtoMapperImpl;
 import com.openclassrooms.chatop.mappers.implementations.user.UserLoginDtoMapperImpl;
 import com.openclassrooms.chatop.mappers.implementations.user.UserRegisterDtoMapperImpl;
@@ -52,9 +54,15 @@ public class UserService {
         this.userRepository.save(user);
     }
 
-    public boolean userHasValidCredentials(UserLoginDto userLoginDTO) {
+    public void userHasValidCredentials(UserLoginDto userLoginDTO) {
         User user = this.userRepository.findByEmail(userLoginDTO.getLogin());
-        return passwordService.checkPassword(userLoginDTO.getPassword(), user.getPassword());
+        if (user == null) {
+            throw new NotFoundException();
+        }
+
+        if (!this.passwordService.checkPassword(userLoginDTO.getPassword(), user.getPassword())) {
+            throw new UnauthorizedException();
+        }
     }
 
     public UserResponseDto userToUserDto(User user) {

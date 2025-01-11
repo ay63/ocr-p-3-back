@@ -40,10 +40,11 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<tokenResponseDto> login(@Valid @RequestBody UserLoginDto userLoginDTO) {
-        if (!userService.userHasValidCredentials(userLoginDTO)) throw new UnauthorizedException();
+        this.userService.userHasValidCredentials(userLoginDTO);
 
         return ResponseEntity.ok().body(
-                new tokenResponseDto(jwtService.generateToken(this.userService.userLoginDtoToUser(userLoginDTO))
+                new tokenResponseDto(
+                        jwtService.generateToken(this.userService.userLoginDtoToUser(userLoginDTO))
                 ));
     }
 
