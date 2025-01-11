@@ -7,7 +7,6 @@ import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalUpdateDto;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
-import com.openclassrooms.chatop.exceptions.NotFoundException;
 import com.openclassrooms.chatop.services.RentalService;
 import com.openclassrooms.chatop.services.UserService;
 import jakarta.validation.Valid;
@@ -36,21 +35,15 @@ public class RentalController {
             @Valid @ModelAttribute RentalCreateDto rentalDTO,
             Authentication authentication
     ) throws Exception {
-
-        User user = this.userService.findUserByEmail(authentication.getName());
-        if (user == null) throw new NotFoundException();
-
+        User user = this.userService.findUserByEmailOrThrowError(authentication.getName());
         Rental rental = this.rentalService.createRentalWithFileUpload(user, rentalDTO);
         rentalService.saveRental(rental);
-
         return ResponseEntity.ok().body(new GenericResponseDto("Rental created !"));
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<RentalResponseDto> getRental(@PathVariable("id") int id) {
-        Rental rental = this.rentalService.findRentalById(id);
-        if (rental == null) throw new NotFoundException();
-
+        Rental rental = this.rentalService.findRentalByUserIdOrThrowError(id);
         return ResponseEntity.ok().body(rentalService.rentalToRentalResponseDto(rental));
     }
 
@@ -64,11 +57,8 @@ public class RentalController {
             @PathVariable("id") int id,
             @Valid @ModelAttribute RentalUpdateDto rentalUpdateDTO
     ) {
-        Rental rental = this.rentalService.findRentalById(id);
-        if (rental == null) throw new NotFoundException();
-
+        Rental rental = this.rentalService.findRentalByUserIdOrThrowError(id);
         this.rentalService.updateAndSaveRental(rental, rentalUpdateDTO);
-
         return ResponseEntity.ok().body(new GenericResponseDto("Rental updated !"));
     }
 

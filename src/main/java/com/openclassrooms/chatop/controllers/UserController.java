@@ -22,9 +22,7 @@ public class UserController {
 
     @GetMapping(path = "{id}")
     public ResponseEntity<UserResponseDto> getUser(@PathVariable("id") int id) {
-        User user = this.userService.findUserById(id);
-        if (user == null) throw new NotFoundException();
-
+        User user = this.userService.findUserByIdOrThrowError(id);
         return ResponseEntity.ok(this.userService.userToUserDto(user));
     }
 }

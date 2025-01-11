@@ -1,6 +1,7 @@
 package com.openclassrooms.chatop.services;
 
 import com.openclassrooms.chatop.dto.rental.RentalsResponseDto;
+import com.openclassrooms.chatop.exceptions.NotFoundException;
 import com.openclassrooms.chatop.mappers.implementations.rental.RentalResponseDtoMapperImpl;
 import com.openclassrooms.chatop.dto.rental.RentalCreateDto;
 import com.openclassrooms.chatop.mappers.implementations.rental.RentalDtoMapperImpl;
@@ -47,6 +48,14 @@ public class RentalService {
 
     public Rental findRentalById(int id) {
         return this.rentalRepository.findById(id).orElse(null);
+    }
+
+    public Rental findRentalByUserIdOrThrowError(int id) {
+        Rental rental = this.findRentalById(id);
+        if (rental == null) {
+            throw new NotFoundException();
+        }
+        return rental;
     }
 
     /**

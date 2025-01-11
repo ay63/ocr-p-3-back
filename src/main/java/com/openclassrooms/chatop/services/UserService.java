@@ -4,6 +4,7 @@ import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
 import com.openclassrooms.chatop.entities.User;
+import com.openclassrooms.chatop.exceptions.BadRequestException;
 import com.openclassrooms.chatop.exceptions.NotFoundException;
 import com.openclassrooms.chatop.exceptions.UnauthorizedException;
 import com.openclassrooms.chatop.mappers.implementations.user.UserResponseDtoMapperImpl;
@@ -38,12 +39,31 @@ public class UserService {
         return this.userRepository.findByEmail(email) != null;
     }
 
-    public User findUserByEmail(String email) {
-        return this.userRepository.findByEmail(email);
+    public void userExistOrThrowError(String email) {
+        if (this.isUserExist(email)) {
+            throw new BadRequestException();
+        }
+    }
+
+    public User findUserByEmailOrThrowError(String email) {
+        User user = this.userRepository.findByEmail(email);
+        if (user == null) {
+            throw new NotFoundException();
+        }
+
+        return user;
     }
 
     public User findUserById(int id) {
         return this.userRepository.findById(id).orElse(null);
+    }
+
+    public User findUserByIdOrThrowError(int id) {
+        User user = this.findUserById(id);
+        if (user == null) {
+            throw new NotFoundException();
+        }
+        return user;
     }
 
     public User userRegisterDtoToUser(UserRegisterDto userRegisterDTO) {

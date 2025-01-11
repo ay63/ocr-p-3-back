@@ -5,8 +5,6 @@ import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
 import com.openclassrooms.chatop.entities.User;
-import com.openclassrooms.chatop.exceptions.BadRequestException;
-import com.openclassrooms.chatop.exceptions.NotFoundException;
 import com.openclassrooms.chatop.services.JwtService;
 import com.openclassrooms.chatop.services.UserService;
 import jakarta.validation.Valid;
@@ -28,8 +26,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<tokenResponseDto> register(@Valid @RequestBody UserRegisterDto userRegisterDTO) {
-        boolean userExist = userService.isUserExist(userRegisterDTO.getEmail());
-        if (userExist) throw new BadRequestException();
+        this.userService.userExistOrThrowError(userRegisterDTO.getEmail());
 
         User newUser = userService.userRegisterDtoToUser(userRegisterDTO);
         userService.saveUser(newUser);
@@ -49,9 +46,7 @@ public class AuthController {
 
     @GetMapping("/me")
     public ResponseEntity<UserResponseDto> me(Authentication authentication) {
-        User user = this.userService.findUserByEmail(authentication.getName());
-        if (user == null) throw new NotFoundException();
-
+        User user = this.userService.findUserByEmailOrThrowError(authentication.getName());
         return ResponseEntity.ok().body(this.userService.userToUserDto(user));
     }
 
