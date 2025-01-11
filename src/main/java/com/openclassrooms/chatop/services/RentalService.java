@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.services;
 
+import com.openclassrooms.chatop.dto.rental.RentalsResponseDto;
 import com.openclassrooms.chatop.mappers.implementations.rental.RentalResponseDtoMapperImpl;
 import com.openclassrooms.chatop.dto.rental.RentalCreateDto;
 import com.openclassrooms.chatop.mappers.implementations.rental.RentalDtoMapperImpl;
@@ -11,9 +12,7 @@ import com.openclassrooms.chatop.repositories.RentalRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class RentalService {
@@ -71,7 +70,8 @@ public class RentalService {
 
     /**
      * Create rental object and upload file to S3 bucket
-     * @param user User
+     *
+     * @param user      User
      * @param rentalDto RentalDto
      * @return Rental
      * @throws Exception
@@ -89,11 +89,8 @@ public class RentalService {
         return rental;
     }
 
-    public Map<String, List<RentalResponseDto>> getAllRentalsResponse() {
-        List<RentalResponseDto> rentalResponseDtos = this.findAllRentals();
-        Map<String, List<RentalResponseDto>> response = new HashMap<>();
-        response.put("rentals", rentalResponseDtos);
-        return response;
+    public RentalsResponseDto getAllRentalsResponse() {
+        return new RentalsResponseDto(this.findAllRentals());
     }
 
 }

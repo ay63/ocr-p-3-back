@@ -4,10 +4,10 @@ import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.services.DateService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
-@Component
+@Service
 public class RentalResponseDtoMapperImpl implements DtoMapper<Rental, RentalResponseDto> {
 
     private final DateService dateService;

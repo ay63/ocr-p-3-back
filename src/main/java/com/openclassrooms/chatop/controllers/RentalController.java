@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.controllers;
 
+import com.openclassrooms.chatop.dto.rental.RentalsResponseDto;
 import com.openclassrooms.chatop.dto.response.GenericResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalCreateDto;
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
@@ -13,9 +14,6 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 
 @RestController()
@@ -57,7 +55,7 @@ public class RentalController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<Map<String, List<RentalResponseDto>>> getAllRentals() {
+    public ResponseEntity<RentalsResponseDto> getAllRentals() {
         return ResponseEntity.ok().body(this.rentalService.getAllRentalsResponse());
     }
 

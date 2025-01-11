@@ -7,7 +7,6 @@ import com.openclassrooms.chatop.dto.user.UserRegisterDto;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.exceptions.BadRequestException;
 import com.openclassrooms.chatop.exceptions.NotFoundException;
-import com.openclassrooms.chatop.exceptions.UnauthorizedException;
 import com.openclassrooms.chatop.services.JwtService;
 import com.openclassrooms.chatop.services.UserService;
 import jakarta.validation.Valid;

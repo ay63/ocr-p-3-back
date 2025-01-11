@@ -4,9 +4,9 @@ import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.services.DateService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserResponseDtoMapperImpl implements DtoMapper<User, UserResponseDto> {
 
     private final DateService dateService;

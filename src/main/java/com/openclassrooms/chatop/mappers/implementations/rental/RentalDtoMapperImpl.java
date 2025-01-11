@@ -7,11 +7,11 @@ import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.repositories.UserRepository;
 import com.openclassrooms.chatop.services.DateService;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
-@Component
+@Service
 public class RentalDtoMapperImpl implements DtoMapper<Rental, RentalCreateDto> {
 
     private final UserRepository userRepository;

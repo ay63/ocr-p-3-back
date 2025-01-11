@@ -8,10 +8,10 @@ import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.repositories.RentalRepository;
 import com.openclassrooms.chatop.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 
-@Component
+@Service
 public class MessageDtoMapperImpl implements DtoMapper<Message, MessageDto> {
 
     private final UserRepository userRepository;
