@@ -1,9 +1,8 @@
 package com.openclassrooms.chatop.controllers;
 
-import com.openclassrooms.chatop.dto.generic.GenericResponseDto;
+import com.openclassrooms.chatop.dto.response.GenericResponseDto;
 import com.openclassrooms.chatop.dto.message.MessageDto;
 import com.openclassrooms.chatop.entities.Message;
-import com.openclassrooms.chatop.exceptions.BadRequestException;
 import com.openclassrooms.chatop.services.MessageService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;

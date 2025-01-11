@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.controllers;
 
-import com.openclassrooms.chatop.dto.generic.GenericResponseDto;
+import com.openclassrooms.chatop.dto.response.GenericResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalCreateDto;
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.dto.rental.RentalUpdateDto;

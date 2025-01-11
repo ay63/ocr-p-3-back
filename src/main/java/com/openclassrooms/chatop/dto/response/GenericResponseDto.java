@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.dto.generic;
+package com.openclassrooms.chatop.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
