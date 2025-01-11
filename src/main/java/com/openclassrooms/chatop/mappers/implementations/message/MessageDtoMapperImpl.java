@@ -10,6 +10,8 @@ import com.openclassrooms.chatop.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+
 
 @Service
 public class MessageDtoMapperImpl implements DtoMapper<Message, MessageDto> {
@@ -37,8 +39,8 @@ public class MessageDtoMapperImpl implements DtoMapper<Message, MessageDto> {
         message.setMessage(dto.getMessage());
         message.setUser(user);
         message.setRental(rental);
-        message.setCreatedAt(dto.getCreatedAt());
-        message.setUpdatedAt(dto.getUpdatedAt());
+        message.setCreatedAt(Instant.now());
+        message.setUpdatedAt(Instant.now());
         return message;
     }
 
