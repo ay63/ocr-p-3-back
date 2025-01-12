@@ -29,11 +29,7 @@ abstract class BaseRentalDto {
     @JsonProperty("owner_id")
     private Integer ownerId;
 
-    @JsonProperty("created_at")
-    private String createdAt;
 
-    @JsonProperty("updated_at")
-    private String updatedAt;
 
 }
 

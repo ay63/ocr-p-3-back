@@ -28,17 +28,9 @@ public class RentalDtoMapperImpl implements DtoMapper<Rental, RentalCreateDto> {
         User user = this.userRepository.findById(dto.getOwnerId())
                 .orElseThrow(() -> new EntityNotFoundException(String.format("User with ID %d not found", dto.getOwnerId())));
 
-        Instant now = Instant.now();
-        Instant createdAt = (dto.getCreatedAt() != null)
-                ? dateService.DateFormatStringToInstant(dto.getCreatedAt())
-                : now;
-        Instant updatedAt = (dto.getUpdatedAt() != null)
-                ? dateService.DateFormatStringToInstant(dto.getUpdatedAt())
-                : now;
-
         Rental rental = new Rental();
-        rental.setCreatedAt(createdAt);
-        rental.setUpdatedAt(updatedAt);
+        rental.setCreatedAt(Instant.now());
+        rental.setUpdatedAt(Instant.now());
         rental.setName(dto.getName());
         rental.setOwner(user);
         rental.setDescription(dto.getDescription());

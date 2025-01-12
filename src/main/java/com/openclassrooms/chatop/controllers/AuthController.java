@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,20 +32,15 @@ public class AuthController {
 
     @Operation(
             description = "Create user",
-            tags = {"Auth"}
-    )
-    @RequestBody(
-            content = @Content(
-                    mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
-                    schema = @Schema(implementation = UserRegisterDto.class)
-            )
+            tags = {"Auth"},
+            security = {}
     )
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
                     description = "return token",
                     content = @Content(
-                            mediaType = "application/json",
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = tokenResponseDto.class)
                     )
             ),
@@ -70,11 +64,12 @@ public class AuthController {
 
     @Operation(
             description = "Login user",
-            tags = {"Auth"}
+            tags = {"Auth"},
+            security = {}
     )
-    @RequestBody(
+    @io.swagger.v3.oas.annotations.parameters.RequestBody(
             content = @Content(
-                    mediaType = MediaType.MULTIPART_FORM_DATA_VALUE,
+                    mediaType = MediaType.APPLICATION_JSON_VALUE,
                     schema = @Schema(implementation = UserLoginDto.class)
             )
     )
@@ -83,7 +78,7 @@ public class AuthController {
                     responseCode = "200",
                     description = "return token",
                     content = @Content(
-                            mediaType = "application/json",
+                            mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = tokenResponseDto.class)
                     )
             ),

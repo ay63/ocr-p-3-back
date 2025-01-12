@@ -21,20 +21,12 @@ public class UserRegisterDtoMapperImpl implements DtoMapper<User, UserRegisterDt
     @Override
     public User toEntity(UserRegisterDto dto) {
 
-        if (dto.getCreatedAt() == null) {
-            dto.setCreatedAt(Instant.now());
-        }
-
-        if (dto.getUpdatedAt() == null) {
-            dto.setUpdatedAt(Instant.now());
-        }
-
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setPassword(passwordService.hashPassword(dto.getPassword()));
-        user.setCreatedAt(dto.getCreatedAt());
-        user.setUpdatedAt(dto.getUpdatedAt());
+        user.setCreatedAt(Instant.now());
+        user.setUpdatedAt(Instant.now());
         return user;
     }
 
