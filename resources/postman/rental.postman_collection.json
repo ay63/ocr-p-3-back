@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "e2d2a80a-c3b8-456e-97ca-80aea313dfe7",
+		"_postman_id": "0f4adac2-46e5-4916-91e1-1edbbd863003",
 		"name": "rental",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1183177"
+		"_exporter_id": "6466127"
 	},
 	"item": [
 		{
@@ -12,11 +12,14 @@
 				{
 					"name": "register",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"test@test.com\",\n    \"name\": \"test TEST\",\n    \"password\": \"test!31\"\n}",
+							"raw": "{\n    \"email\": \"aa@ocr.fr\",\n    \"name\": \"Awad\",\n    \"password\": \"edc123EDC\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -41,11 +44,14 @@
 				{
 					"name": "login",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"login\": \"test@test.com\",\n    \"password\": \"test!31\"\n}",
+							"raw": "{\n    \"email\": \"aa@ocr.fr\",\n    \"password\": \"edc123EDC\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -61,7 +67,7 @@
 							"path": [
 								"api",
 								"auth",
-								"email"
+								"login"
 							]
 						}
 					},
@@ -75,7 +81,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "jwt",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -105,6 +111,16 @@
 				{
 					"name": "get All",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -124,6 +140,16 @@
 				{
 					"name": "get",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -144,6 +170,16 @@
 				{
 					"name": "create",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -151,41 +187,40 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "name",
+									"value": "Une autre location",
 									"type": "text"
 								},
 								{
 									"key": "surface",
-									"value": "50",
+									"value": "25",
 									"type": "text"
 								},
 								{
 									"key": "price",
-									"value": "200",
+									"value": "350",
 									"type": "text"
 								},
 								{
 									"key": "picture",
 									"type": "file",
-									"src": []
+									"src": "/C:/Users/aym-a/Pictures/rental-one.jpg"
 								},
 								{
 									"key": "description",
-									"value": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam a lectus eleifend, varius massa ac, mollis tortor. Quisque ipsum nulla, faucibus ac metus a, eleifend efficitur augue. Integer vel pulvinar ipsum. Praesent mollis neque sed sagittis ultricies. Suspendisse congue ligula at justo molestie, eget cursus nulla tincidunt. Pellentesque elementum rhoncus arcu, viverra gravida turpis mattis in. Maecenas tempor elementum lorem vel ultricies. Nam tempus laoreet eros, et viverra libero tincidunt a. Nunc vel nisi vulputate, sodales massa eu, varius erat.",
+									"value": "un autre location description",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:3001/api/rentals/1",
+							"raw": "localhost:3001/api/rentals",
 							"host": [
 								"localhost"
 							],
 							"port": "3001",
 							"path": [
 								"api",
-								"rentals",
-								"1"
+								"rentals"
 							]
 						}
 					},
@@ -194,6 +229,16 @@
 				{
 					"name": "update",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -201,7 +246,7 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "name",
+									"value": "Update name",
 									"type": "text"
 								},
 								{
@@ -244,11 +289,21 @@
 				{
 					"name": "message",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"message\": \"mon message\",\n    \"user_id\": 1,\n    \"rental_id\": 1\n}",
+							"raw": "{\n    \"message\": \"mon message of message of message\",\n    \"user_id\": 1,\n    \"rental_id\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -256,15 +311,49 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3001/api/messages/",
+							"raw": "localhost:3001/api/messages",
 							"host": [
 								"localhost"
 							],
 							"port": "3001",
 							"path": [
 								"api",
-								"messages",
-								""
+								"messages"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3001/api/user/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"api",
+								"user",
+								"1"
 							]
 						}
 					},

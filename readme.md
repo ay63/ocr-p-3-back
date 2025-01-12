@@ -8,27 +8,6 @@
 git clone https://github.com/ay63/ocr-p-3-back.git
 ```
 
-## Run projet
-
-```
- ./mvnw spring-boot:run
-```
-
-## Build documentation
-
-```
-./mvnw javadoc:javadoc
-```
-
-## RSA Keys
-
-Generate public and private key
-
-```
-openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
-openssl rsa -pubout -in private_key.pem -out public_key.pem
-```
-
 ## Postman collection
 
 For Postman import the collection
@@ -51,10 +30,31 @@ USE chatop;
 source path/to/sql/script.sql;
 ```
 
-## AWS S3
+## RSA Keys
 
-Get started with S3
-> https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+Generate public and private key
+
+```
+openssl genpkey -algorithm RSA -out private_key.pem -pkeyopt rsa_keygen_bits:2048
+openssl rsa -pubout -in private_key.pem -out public_key.pem
+```
+
+## AWS S3
+S3 is used for uploading images of rentals.
+
+> Get started with S3 https://docs.aws.amazon.com/AmazonS3/latest/userguide/GetStartedWithS3.html
+
+## Run project
+
+```
+ ./mvnw spring-boot:run
+```
+
+## Build documentation
+
+```
+./mvnw javadoc:javadoc
+```
 
 ## Swagger/OpenApi
 
@@ -63,7 +63,7 @@ Get started with S3
 
 ### Download frontend project
 
-**Then follow the readme in to install project**
+**Then follow the readme to install project**
 
 ```
 https://github.com/OpenClassrooms-Student-Center/Developpez-le-back-end-en-utilisant-Java-et-Spring.git
