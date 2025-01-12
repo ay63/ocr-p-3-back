@@ -1,5 +1,6 @@
 package com.openclassrooms.chatop.dto.rental;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.openclassrooms.chatop.constraints.multipart.NotEmptyMultipartFile;
 import com.openclassrooms.chatop.constraints.multipart.fileFormat.IsImage;
@@ -15,9 +16,11 @@ public class RentalCreateDto extends BaseRentalDto {
     @NotEmptyMultipartFile
     private MultipartFile picture;
 
+    @JsonIgnore
     @JsonProperty("created_at")
     private String createdAt;
 
+    @JsonIgnore
     @JsonProperty("updated_at")
     private String updatedAt;
 
