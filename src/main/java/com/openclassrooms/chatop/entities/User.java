@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Getter
@@ -43,6 +44,9 @@ public class User implements Timestampable {
     @NotNull
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private List<Message> messages;
 
 
 }

@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Getter
@@ -46,6 +47,9 @@ public class Rental implements Timestampable {
     @Size(max = 2000)
     @Column(name = "description", length = 2000)
     private String description;
+
+    @OneToMany(mappedBy = "rental", orphanRemoval = true)
+    private List<Message> messages;
 
     @NotNull
     @ManyToOne(
