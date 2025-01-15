@@ -38,12 +38,8 @@ public class UserService implements UserDetailsService {
         this.userLoginDtoMapperImpl = userLoginDtoMapperImpl;
     }
 
-    public boolean isUserExist(String email) {
-        return this.userRepository.findByEmail(email) != null;
-    }
-
     public void throwErrorIfUserAlreadyExist(String email) {
-        if (this.isUserExist(email)) {
+        if (this.userRepository.findByEmail(email) != null) {
             throw new UnauthorizedException();
         }
     }
