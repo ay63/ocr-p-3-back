@@ -4,7 +4,6 @@ import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
 import com.openclassrooms.chatop.entities.User;
-import com.openclassrooms.chatop.exceptions.BadRequestException;
 import com.openclassrooms.chatop.exceptions.NotFoundException;
 import com.openclassrooms.chatop.exceptions.UnauthorizedException;
 import com.openclassrooms.chatop.mappers.implementations.user.UserResponseDtoMapperImpl;
@@ -43,9 +42,9 @@ public class UserService implements UserDetailsService {
         return this.userRepository.findByEmail(email) != null;
     }
 
-    public void checkAndThrowUserExist(String email) {
+    public void throwErrorIfUserAlreadyExist(String email) {
         if (this.isUserExist(email)) {
-            throw new BadRequestException();
+            throw new UnauthorizedException();
         }
     }
 
