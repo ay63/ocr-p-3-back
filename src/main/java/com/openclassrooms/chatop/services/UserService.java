@@ -11,6 +11,7 @@ import com.openclassrooms.chatop.mappers.implementations.user.UserResponseDtoMap
 import com.openclassrooms.chatop.mappers.implementations.user.UserLoginDtoMapperImpl;
 import com.openclassrooms.chatop.mappers.implementations.user.UserRegisterDtoMapperImpl;
 import com.openclassrooms.chatop.repositories.UserRepository;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -79,12 +80,9 @@ public class UserService implements UserDetailsService {
 
     public void userHasValidCredentials(UserLoginDto userLoginDTO) {
         UserDetails user = this.loadUserByUsername(userLoginDTO.getEmail());
-        if (user == null) {
-            throw new NotFoundException();
-        }
 
         if (!this.passwordService.checkPassword(userLoginDTO.getPassword(), user.getPassword())) {
-            throw new UnauthorizedException();
+            throw new BadCredentialsException("Wrong credentials");
         }
     }
 
