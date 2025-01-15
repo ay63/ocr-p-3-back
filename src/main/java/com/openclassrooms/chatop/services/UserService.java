@@ -11,10 +11,14 @@ import com.openclassrooms.chatop.mappers.implementations.user.UserResponseDtoMap
 import com.openclassrooms.chatop.mappers.implementations.user.UserLoginDtoMapperImpl;
 import com.openclassrooms.chatop.mappers.implementations.user.UserRegisterDtoMapperImpl;
 import com.openclassrooms.chatop.repositories.UserRepository;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final UserRegisterDtoMapperImpl userRegisterMapperImpl;
@@ -75,13 +79,10 @@ public class UserService {
     }
 
     public void userHasValidCredentials(UserLoginDto userLoginDTO) {
-        User user = this.userRepository.findByEmail(userLoginDTO.getEmail());
-        if (user == null) {
-            throw new NotFoundException();
-        }
+        UserDetails user = this.loadUserByUsername(userLoginDTO.getEmail());
 
         if (!this.passwordService.checkPassword(userLoginDTO.getPassword(), user.getPassword())) {
-            throw new UnauthorizedException();
+            throw new BadCredentialsException("Wrong credentials");
         }
     }
 
@@ -93,4 +94,12 @@ public class UserService {
         return this.userLoginDtoMapperImpl.toEntity(userLoginDTO);
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String email) {
+        UserDetails user = this.userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user;
+    }
 }
