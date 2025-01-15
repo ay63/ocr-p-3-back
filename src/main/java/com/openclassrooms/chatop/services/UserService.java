@@ -39,7 +39,7 @@ public class UserService {
         return this.userRepository.findByEmail(email) != null;
     }
 
-    public void userExistOrThrowError(String email) {
+    public void checkAndThrowUserExist(String email) {
         if (this.isUserExist(email)) {
             throw new BadRequestException();
         }

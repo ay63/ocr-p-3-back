@@ -55,7 +55,7 @@ public class AuthController {
     })
     @PostMapping("/register")
     public ResponseEntity<tokenResponseDto> register(@Valid @RequestBody UserRegisterDto userRegisterDTO) {
-        this.userService.userExistOrThrowError(userRegisterDTO.getEmail());
+        this.userService.checkAndThrowUserExist(userRegisterDTO.getEmail());
         User newUser = userService.userRegisterDtoToUser(userRegisterDTO);
         userService.saveUser(newUser);
 
