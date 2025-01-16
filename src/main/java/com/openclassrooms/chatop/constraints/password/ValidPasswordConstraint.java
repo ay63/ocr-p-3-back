@@ -12,6 +12,9 @@ public class ValidPasswordConstraint implements ConstraintValidator<ValidPasswor
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
+
+        if(s == null) return false;
+
         return (s.length() >= 8 &&  s.matches(".*[0-9].*") && s.matches(".*[A-Z].*"));
     }
 }

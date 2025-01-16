@@ -1,8 +1,8 @@
-package com.openclassrooms.chatop.services.implementation;
+package com.openclassrooms.chatop.services.implementations;
 
 import com.openclassrooms.chatop.dto.message.MessageDto;
 import com.openclassrooms.chatop.entities.Message;
-import com.openclassrooms.chatop.mappers.implementations.message.MessageDtoMapperImpl;
+import com.openclassrooms.chatop.mappers.implementations.MessageDtoMapper;
 import com.openclassrooms.chatop.repositories.MessageRepository;
 import com.openclassrooms.chatop.services.MessageService;
 import org.springframework.stereotype.Service;
@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class MessageServiceImpl implements MessageService {
 
-
     private final MessageRepository messageRepository;
-    private final MessageDtoMapperImpl messageDtoMapperImpl;
+    private final MessageDtoMapper messageDtoMapper;
 
     MessageServiceImpl(MessageRepository messageRepository,
-                   MessageDtoMapperImpl messageDtoMapperImpl
+                       MessageDtoMapper messageDtoMapper
+
     ) {
         this.messageRepository = messageRepository;
-        this.messageDtoMapperImpl = messageDtoMapperImpl;
+        this.messageDtoMapper = messageDtoMapper;
     }
 
     @Override
@@ -29,7 +29,8 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public Message messageDtoToMessage(MessageDto messageDto) {
-        return this.messageDtoMapperImpl.toEntity(messageDto);
+        return this.messageDtoMapper
+                .toEntity(messageDto);
     }
 
 }

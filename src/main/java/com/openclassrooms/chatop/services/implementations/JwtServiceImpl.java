@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.services.implementation;
+package com.openclassrooms.chatop.services.implementations;
 
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.services.JwtService;

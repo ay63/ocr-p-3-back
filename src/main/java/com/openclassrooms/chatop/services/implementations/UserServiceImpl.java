@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.services.implementation;
+package com.openclassrooms.chatop.services.implementations;
 
 import com.openclassrooms.chatop.dto.user.UserLoginDto;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
@@ -6,46 +6,45 @@ import com.openclassrooms.chatop.dto.user.UserResponseDto;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.exceptions.NotFoundException;
 import com.openclassrooms.chatop.exceptions.UnauthorizedException;
-import com.openclassrooms.chatop.mappers.implementations.user.UserLoginDtoMapperImpl;
-import com.openclassrooms.chatop.mappers.implementations.user.UserRegisterDtoMapperImpl;
-import com.openclassrooms.chatop.mappers.implementations.user.UserResponseDtoMapperImpl;
+import com.openclassrooms.chatop.mappers.implementations.UserLoginDtoMapper;
+import com.openclassrooms.chatop.mappers.implementations.UserRegisterDtoMapper;
+import com.openclassrooms.chatop.mappers.implementations.UserResponseDtoMapper;
+
 import com.openclassrooms.chatop.repositories.UserRepository;
 import com.openclassrooms.chatop.services.PasswordService;
 import com.openclassrooms.chatop.services.UserService;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
-
     private final UserRepository userRepository;
-    private final UserRegisterDtoMapperImpl userRegisterMapperImpl;
+    private final UserRegisterDtoMapper userRegisterMapper;
     private final PasswordService passwordService;
-    private final UserResponseDtoMapperImpl userDtoMapperImpl;
-    private final UserLoginDtoMapperImpl userLoginDtoMapperImpl;
+    private final UserResponseDtoMapper userDtoMapper;
+    private final UserLoginDtoMapper userLoginDtoMapper;
 
     UserServiceImpl(UserRepository userRepository,
-                    UserRegisterDtoMapperImpl userRegisterMapperImpl,
+                    UserRegisterDtoMapper userRegisterMapper,
                     PasswordService passwordService,
-                    UserResponseDtoMapperImpl userDtoMapperImpl,
-                    UserLoginDtoMapperImpl userLoginDtoMapperImpl
+                    UserResponseDtoMapper userDtoMapper,
+                    UserLoginDtoMapper userLoginDtoMapper
     ) {
         this.userRepository = userRepository;
-        this.userRegisterMapperImpl = userRegisterMapperImpl;
+        this.userRegisterMapper = userRegisterMapper;
         this.passwordService = passwordService;
-        this.userDtoMapperImpl = userDtoMapperImpl;
-        this.userLoginDtoMapperImpl = userLoginDtoMapperImpl;
+        this.userDtoMapper = userDtoMapper;
+        this.userLoginDtoMapper = userLoginDtoMapper;
     }
 
     @Override
     public void throwErrorIfUserAlreadyExist(String email) {
         if (this.userRepository.findByEmail(email) != null) {
-            throw new UnauthorizedException();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -75,7 +74,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User userRegisterDtoToUser(UserRegisterDto userRegisterDTO) {
-        return this.userRegisterMapperImpl.toEntity(userRegisterDTO);
+        return this.userRegisterMapper.toEntity(userRegisterDTO);
     }
 
     @Override
@@ -88,25 +87,25 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         UserDetails user = this.loadUserByUsername(userLoginDTO.getEmail());
 
         if (!this.passwordService.checkPassword(userLoginDTO.getPassword(), user.getPassword())) {
-            throw new BadCredentialsException("Wrong credentials");
+            throw new UnauthorizedException("error");
         }
     }
 
     @Override
     public UserResponseDto userToUserDto(User user) {
-        return this.userDtoMapperImpl.toDto(user);
+        return this.userDtoMapper.toDto(user);
     }
 
     @Override
     public User userLoginDtoToUser(UserLoginDto userLoginDTO) {
-        return this.userLoginDtoMapperImpl.toEntity(userLoginDTO);
+        return this.userLoginDtoMapper.toEntity(userLoginDTO);
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) {
         UserDetails user = this.userRepository.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UnauthorizedException("error");
         }
         return user;
     }

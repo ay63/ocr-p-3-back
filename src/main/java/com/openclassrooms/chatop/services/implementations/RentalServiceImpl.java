@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.services.implementation;
+package com.openclassrooms.chatop.services.implementations;
 
 import com.openclassrooms.chatop.dto.rental.RentalCreateDto;
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
@@ -7,7 +7,8 @@ import com.openclassrooms.chatop.dto.rental.RentalsResponseDto;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
 import com.openclassrooms.chatop.exceptions.NotFoundException;
-import com.openclassrooms.chatop.mappers.implementations.rental.RentalDtoMapperImpl;
+
+import com.openclassrooms.chatop.mappers.implementations.RentalDtoMapper;
 import com.openclassrooms.chatop.mappers.implementations.rental.RentalResponseDtoMapperImpl;
 import com.openclassrooms.chatop.repositories.RentalRepository;
 import com.openclassrooms.chatop.services.FileService;
@@ -20,18 +21,18 @@ import java.util.List;
 @Service
 public class RentalServiceImpl implements RentalService {
 
-    private final RentalDtoMapperImpl rentalDTOMapperImpl;
+    private final RentalDtoMapper rentalDtoMapper;
     private final RentalRepository rentalRepository;
     private final RentalResponseDtoMapperImpl rentalResponseDtoMapper;
     private final FileService fileService;
 
     RentalServiceImpl(
-            RentalDtoMapperImpl rentalDTOMapperImpl,
+            RentalDtoMapper rentalDtoMapper,
             RentalRepository rentalRepository,
             RentalResponseDtoMapperImpl rentalResponseDtoMapper,
             FileService fileService
     ) {
-        this.rentalDTOMapperImpl = rentalDTOMapperImpl;
+        this.rentalDtoMapper = rentalDtoMapper;
         this.rentalRepository = rentalRepository;
         this.rentalResponseDtoMapper = rentalResponseDtoMapper;
         this.fileService = fileService;
@@ -39,7 +40,7 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public Rental rentalDtoToRental(RentalCreateDto rentalDTO) {
-        return rentalDTOMapperImpl.toEntity(rentalDTO);
+        return rentalDtoMapper.toEntity(rentalDTO);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.openclassrooms.chatop.mappers.implementations.rental;
 
 import com.openclassrooms.chatop.dto.rental.RentalCreateDto;
-import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
+import com.openclassrooms.chatop.mappers.implementations.RentalDtoMapper;
 import com.openclassrooms.chatop.repositories.UserRepository;
 import com.openclassrooms.chatop.services.DateService;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 
 @Service
-public class RentalDtoMapperImpl implements DtoMapper<Rental, RentalCreateDto> {
+public class RentalDtoMapperImpl implements RentalDtoMapper {
 
     private final UserRepository userRepository;
     private final DateService dateService;

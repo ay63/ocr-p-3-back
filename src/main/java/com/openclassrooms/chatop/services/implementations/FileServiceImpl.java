@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.services.implementation;
+package com.openclassrooms.chatop.services.implementations;
 
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;

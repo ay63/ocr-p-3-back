@@ -1,4 +1,4 @@
-package com.openclassrooms.chatop.services.implementation;
+package com.openclassrooms.chatop.services.implementations;
 
 import com.openclassrooms.chatop.services.PasswordService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
