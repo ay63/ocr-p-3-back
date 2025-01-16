@@ -9,9 +9,7 @@ import com.openclassrooms.chatop.repositories.RentalRepository;
 import com.openclassrooms.chatop.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.time.Instant;
-
 
 @Service
 public class MessageDtoMapperImpl implements DtoMapper<Message, MessageDto> {
