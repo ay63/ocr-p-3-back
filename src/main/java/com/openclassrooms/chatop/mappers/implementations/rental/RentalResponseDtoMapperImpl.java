@@ -1,14 +1,14 @@
 package com.openclassrooms.chatop.mappers.implementations.rental;
 
-import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
 import com.openclassrooms.chatop.dto.rental.RentalResponseDto;
 import com.openclassrooms.chatop.entities.Rental;
+import com.openclassrooms.chatop.mappers.implementations.RentalResponseDtoMapper;
 import com.openclassrooms.chatop.services.DateService;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class RentalResponseDtoMapperImpl implements DtoMapper<Rental, RentalResponseDto> {
+public class RentalResponseDtoMapperImpl implements RentalResponseDtoMapper {
 
     private final DateService dateService;
 
