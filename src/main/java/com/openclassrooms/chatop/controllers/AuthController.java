@@ -46,12 +46,13 @@ public class AuthController {
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Bad Request"
+                    description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{}"
+                            ))
+
             ),
-            @ApiResponse(
-                    responseCode = "401",
-                    description = "unauthorized"
-            )
     })
     @PostMapping("/register")
     public ResponseEntity<tokenResponseDto> register(@Valid @RequestBody UserRegisterDto userRegisterDTO) {
@@ -83,12 +84,13 @@ public class AuthController {
                     )
             ),
             @ApiResponse(
-                    responseCode = "400",
-                    description = "Bad Request"
-            ),
-            @ApiResponse(
                     responseCode = "401",
-                    description = "unauthorized"
+                    description = "unauthorized",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{ \"message\" : \"error\"}"
+                            ))
+
             )
     })
     @PostMapping("/login")
@@ -116,12 +118,9 @@ public class AuthController {
                     )
             ),
             @ApiResponse(
-                    responseCode = "400",
-                    description = "Bad Request"
-            ),
-            @ApiResponse(
                     responseCode = "401",
-                    description = "unauthorized"
+                    description = "unauthorized",
+                    content = @Content()
             )
     })
     @GetMapping("/me")

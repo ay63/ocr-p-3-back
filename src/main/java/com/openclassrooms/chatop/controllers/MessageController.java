@@ -48,11 +48,16 @@ public class MessageController {
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Bad Request"
+                    description = "Bad Request",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(example = "{}"
+                            ))
             ),
             @ApiResponse(
                     responseCode = "401",
-                    description = "unauthorized"
+                    description = "unauthorized",
+                    content = @Content()
             )
     })
     @PostMapping

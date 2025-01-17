@@ -57,12 +57,9 @@ public class RentalController {
                     )
             ),
             @ApiResponse(
-                    responseCode = "400",
-                    description = "Bad request"
-            ),
-            @ApiResponse(
                     responseCode = "401",
-                    description = "Unauthorized"
+                    description = "Unauthorized",
+                    content = @Content()
             )
     })
     @PostMapping
@@ -91,7 +88,8 @@ public class RentalController {
             ),
             @ApiResponse(
                     responseCode = "401",
-                    description = "Unauthorized"
+                    description = "Unauthorized",
+                    content = @Content()
             )
     })
     @GetMapping(path = "/{id}")
@@ -115,7 +113,8 @@ public class RentalController {
             ),
             @ApiResponse(
                     responseCode = "401",
-                    description = "unauthorized"
+                    description = "unauthorized",
+                    content = @Content()
             )
     })
     @GetMapping()
@@ -144,12 +143,9 @@ public class RentalController {
                     )
             ),
             @ApiResponse(
-                    responseCode = "400",
-                    description = "Bad Request"
-            ),
-            @ApiResponse(
                     responseCode = "401",
-                    description = "unauthorized"
+                    description = "unauthorized",
+                    content = @Content()
             )
     })
     @PutMapping(path = "/{id}")
