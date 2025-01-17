@@ -4,35 +4,31 @@ import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    /**
-     * Handles MethodArgumentNotValidException, which is thrown when an object validated with @Valid
-     * contains fields that violate validation constraints.
-     *
-     * @param exception MethodArgumentNotValidException
-     * @return ResponseEntity
-     */
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ProblemDetail> handleValidationExceptions(MethodArgumentNotValidException exception) {
-        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Validation failed");
-        List<String> errors = exception.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(error -> String.format("Field '%s': %s", error.getField(), error.getDefaultMessage()))
-                .collect(Collectors.toList());
-        problemDetail.setProperty("errors", errors);
-        return ResponseEntity.badRequest().body(problemDetail);
+    @ExceptionHandler({
+            HttpMessageNotReadableException.class,
+            IllegalArgumentException.class,
+            MethodArgumentNotValidException.class
 
+    })
+    public ResponseEntity<String> handleValidationExceptions(Exception ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("{}");
     }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<String> handleValidationExceptions(UnauthorizedException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{ \"message\": \"error\" }");
+    }
+
 
     /**
      * Handles ConstraintViolationException, which is thrown when simple parameters

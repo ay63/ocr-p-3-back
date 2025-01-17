@@ -1,20 +1,18 @@
 package com.openclassrooms.chatop.mappers.implementations.message;
 
-import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
 import com.openclassrooms.chatop.dto.message.MessageDto;
 import com.openclassrooms.chatop.entities.Message;
 import com.openclassrooms.chatop.entities.Rental;
 import com.openclassrooms.chatop.entities.User;
+import com.openclassrooms.chatop.mappers.implementations.MessageDtoMapper;
 import com.openclassrooms.chatop.repositories.RentalRepository;
 import com.openclassrooms.chatop.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.time.Instant;
 
-
 @Service
-public class MessageDtoMapperImpl implements DtoMapper<Message, MessageDto> {
+public class MessageDtoMapperImpl implements MessageDtoMapper {
 
     private final UserRepository userRepository;
     private final RentalRepository rentalRepository;

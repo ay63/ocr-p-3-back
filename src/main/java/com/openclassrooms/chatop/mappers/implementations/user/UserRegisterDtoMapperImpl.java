@@ -3,14 +3,14 @@ package com.openclassrooms.chatop.mappers.implementations.user;
 import com.openclassrooms.chatop.dto.user.UserRegisterDto;
 
 import com.openclassrooms.chatop.entities.User;
-import com.openclassrooms.chatop.mappers.implementations.DtoMapper;
+import com.openclassrooms.chatop.mappers.implementations.UserRegisterDtoMapper;
 import com.openclassrooms.chatop.services.PasswordService;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
 @Service
-public class UserRegisterDtoMapperImpl implements DtoMapper<User, UserRegisterDto> {
+public class UserRegisterDtoMapperImpl implements UserRegisterDtoMapper {
 
     private final PasswordService passwordService;
 
